@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files | Module 3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="tutorial-1.html">Tutorial 1</a>
+      <a href="tutorial-2.html">Tutorial 2</a>
+      <a href="tutorial-3.html">Tutorial 3</a>
+      <a href="tutorial-4.html">Tutorial 4</a>
+      <a href="resources.html">Resources</a>
+      <a class="active" href="files.html">Files</a>
+      <a href="people.html">People</a>
+    </nav>
+
+    <header class="banner">
+      <span class="eyebrow">Repository inventory</span>
+      <h1>Search the module files</h1>
+      <p class="lead">
+        Every file in the module in one place. Filter by type or tutorial, or search by name, to find the exact
+        notebook, dataset, guide, or image you need.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Inventory</span>
+          <h2>All indexed files</h2>
+        </div>
+        <div class="filters">
+          <label class="filter">
+            <span>Type</span>
+            <select id="typeFilter" class="search">
+              <option value="">All types</option>
+              <option value="notebook">Notebooks</option>
+              <option value="data">Data</option>
+              <option value="guide">Guides</option>
+              <option value="image">Images</option>
+            </select>
+          </label>
+          <label class="filter">
+            <span>Tutorial</span>
+            <select id="tutorialFilter" class="search">
+              <option value="">All tutorials</option>
+              <option value="1">Tutorial 1</option>
+              <option value="2">Tutorial 2</option>
+              <option value="3">Tutorial 3</option>
+              <option value="4">Tutorial 4</option>
+            </select>
+          </label>
+          <label class="filter">
+            <span>Search</span>
+            <input id="fileSearch" class="search" type="search" placeholder="Filter folders or filenames">
+          </label>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Folder</th>
+              <th>File</th>
+              <th>Type</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody id="fileTable">
+            <tr data-type="notebook" data-tutorial="1" data-search="tutorial 1 introduction and functions ipynb notebook"><td>tutorial_1</td><td>Introduction_and_functions.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_1/Introduction_and_functions.html">Open rendered</a></td></tr>
+            <tr data-type="guide" data-tutorial="1" data-search="tutorial 1 readme md guide"><td>tutorial_1</td><td>README.md</td><td>guide</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/README.md">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="1" data-search="tutorial 1 data clinvar 5000 vcf data"><td>tutorial_1/data</td><td>clinvar_5000.vcf</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/data/clinvar_5000.vcf">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="1" data-search="tutorial 1 data example sam sam data"><td>tutorial_1/data</td><td>example_sam.sam</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/data/example_sam.sam">Open</a></td></tr>
+            <tr data-type="image" data-tutorial="1" data-search="tutorial 1 sam file png image"><td>tutorial_1</td><td>sam_file.png</td><td>image</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/sam_file.png">Open</a></td></tr>
+            <tr data-type="image" data-tutorial="1" data-search="tutorial 1 vcf format png image"><td>tutorial_1</td><td>vcf_format.png</td><td>image</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/vcf_format.png">Open</a></td></tr>
+            <tr data-type="guide" data-tutorial="2" data-search="tutorial 2 readme md guide"><td>tutorial_2</td><td>README.md</td><td>guide</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/README.md">Open</a></td></tr>
+            <tr data-type="notebook" data-tutorial="2" data-search="tutorial 2 timeseriesanalysis ipynb notebook"><td>tutorial_2</td><td>TimeSeriesAnalysis.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">Open rendered</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data ecg csv data"><td>tutorial_2/data</td><td>ecg.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/ecg.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data ehr parkinsons csv data"><td>tutorial_2/data</td><td>ehr_parkinsons.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/ehr_parkinsons.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data medications csv data"><td>tutorial_2/data</td><td>medications.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/medications.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data pads 10 accelerometer data csv data"><td>tutorial_2/data</td><td>pads10_accelerometer_data.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/pads10_accelerometer_data.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data patients csv data"><td>tutorial_2/data</td><td>patients.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/patients.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data wearable rest recordings csv data"><td>tutorial_2/data</td><td>wearable_rest_recordings.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/wearable_rest_recordings.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="2" data-search="tutorial 2 data wrist accelerometer csv data"><td>tutorial_2/data</td><td>wrist_accelerometer.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/wrist_accelerometer.csv">Open</a></td></tr>
+            <tr data-type="notebook" data-tutorial="2" data-search="tutorial 2 end of day task ipynb notebook"><td>tutorial_2</td><td>end_of_day_task.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_2/end_of_day_task.html">Open rendered</a></td></tr>
+            <tr data-type="notebook" data-tutorial="2" data-search="tutorial 2 pandas intro ehr ipynb notebook"><td>tutorial_2</td><td>pandas_intro_EHR.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">Open rendered</a></td></tr>
+            <tr data-type="guide" data-tutorial="3" data-search="tutorial 3 readme md guide"><td>tutorial_3</td><td>README.md</td><td>guide</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/README.md">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="3" data-search="tutorial 3 data pd bloodwork csv data"><td>tutorial_3/data</td><td>pd_bloodwork.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/data/pd_bloodwork.csv">Open</a></td></tr>
+            <tr data-type="image" data-tutorial="3" data-search="tutorial 3 images img 2871 webp image"><td>tutorial_3/images</td><td>IMG_2871.WEBP</td><td>image</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/images/IMG_2871.WEBP">Open</a></td></tr>
+            <tr data-type="image" data-tutorial="3" data-search="tutorial 3 images img 2876 jpg image"><td>tutorial_3/images</td><td>IMG_2876.JPG</td><td>image</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/images/IMG_2876.JPG">Open</a></td></tr>
+            <tr data-type="image" data-tutorial="3" data-search="tutorial 3 images img 2882 jpg image"><td>tutorial_3/images</td><td>IMG_2882.jpg</td><td>image</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/images/IMG_2882.jpg">Open</a></td></tr>
+            <tr data-type="image" data-tutorial="3" data-search="tutorial 3 images mean median mode jpg image"><td>tutorial_3/images</td><td>mean_median_mode.jpg</td><td>image</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/images/mean_median_mode.jpg">Open</a></td></tr>
+            <tr data-type="notebook" data-tutorial="3" data-search="tutorial 3 pandas ehr tutorial part 12026 exercises ipynb notebook"><td>tutorial_3</td><td>pandas_ehr_tutorial_part1_2026_exercises.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Open rendered</a></td></tr>
+            <tr data-type="notebook" data-tutorial="3" data-search="tutorial 3 pandas ehr tutorial part 22026 exercises ipynb notebook"><td>tutorial_3</td><td>pandas_ehr_tutorial_part2_2026_exercises.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Open rendered</a></td></tr>
+            <tr data-type="notebook" data-tutorial="4" data-search="tutorial 4 intro toml ipynb notebook"><td>tutorial_4</td><td>Intro_toML.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Open rendered</a></td></tr>
+            <tr data-type="guide" data-tutorial="4" data-search="tutorial 4 readme md guide"><td>tutorial_4</td><td>README.md</td><td>guide</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/README.md">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data df for unsupervised csv data"><td>tutorial_4/data</td><td>DF_for_unsupervised.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/DF_for_unsupervised.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data data for challenge csv data"><td>tutorial_4/data</td><td>Data_for_challenge.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Data_for_challenge.csv">Open</a></td></tr>
+            <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data proteomics tremor pd csv data"><td>tutorial_4/data</td><td>Proteomics_tremor_PD.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Proteomics_tremor_PD.csv">Open</a></td></tr>
+            <tr id="noMatches" style="display: none"><td colspan="4">No files match these filters.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>File inventory page for Module 3.</footer>
+  </div>
+  <script src="site.js"></script>
+  <script>
+    const input = document.getElementById("fileSearch");
+    const typeFilter = document.getElementById("typeFilter");
+    const tutorialFilter = document.getElementById("tutorialFilter");
+    const rows = Array.from(document.querySelectorAll("#fileTable tr"));
+    const emptyRow = document.getElementById("noMatches");
+    const applyFilters = () => {
+      const query = input.value.trim().toLowerCase();
+      let shown = 0;
+      rows.forEach((row) => {
+        if (row === emptyRow) return;
+        const haystack = `${row.dataset.search || ""} ${row.textContent}`.toLowerCase();
+        const visible = haystack.includes(query)
+          && (!typeFilter.value || row.dataset.type === typeFilter.value)
+          && (!tutorialFilter.value || row.dataset.tutorial === tutorialFilter.value);
+        row.style.display = visible ? "" : "none";
+        if (visible) shown += 1;
+      });
+      emptyRow.style.display = shown ? "none" : "";
+    };
+    [input, typeFilter, tutorialFilter].forEach((el) => {
+      el.addEventListener("input", applyFilters);
+      el.addEventListener("change", applyFilters);
+    });
+  </script>
+</body>
+</html>

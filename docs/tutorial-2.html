@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial 2 | Module 3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-cecilia">
+  <div class="shell">
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="tutorial-1.html">Tutorial 1</a>
+      <a class="active" href="tutorial-2.html">Tutorial 2</a>
+      <a href="tutorial-3.html">Tutorial 3</a>
+      <a href="tutorial-4.html">Tutorial 4</a>
+      <a href="resources.html">Resources</a>
+      <a href="files.html">Files</a>
+      <a href="people.html">People</a>
+    </nav>
+
+    <header class="banner">
+      <span class="eyebrow">Tutorial 2</span>
+      <h1>Tabular health records and biological time series</h1>
+      <p class="lead">
+        Two of the most common kinds of real-world data in clinical neuroscience: loading, cleaning and summarising
+        Electronic Health Records with pandas, then turning ECG and smartwatch accelerometer recordings into features.
+        The day ends with a short task that links sensor features to each patient's health record.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="duo">
+        <div class="mini-panel">
+          <span class="eyebrow">Primary files</span>
+          <h3>Notebook entry points</h3>
+          <ul>
+            <li><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">pandas_intro_EHR notebook</a></li>
+            <li><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">TimeSeriesAnalysis notebook</a></li>
+            <li><a href="rendered-notebooks/tutorial_2/end_of_day_task.html">End-of-day task</a></li>
+            <li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/README.md">Tutorial 2 README</a></li>
+          </ul>
+        </div>
+        <aside class="contributors">
+          <span class="eyebrow">Tutorial lead</span>
+          <h3>Your tutorial lead</h3>
+          <a class="focus-name" href="mailto:cecilia.rodriguez20@imperial.ac.uk" title="Email Cecilia Rodriguez">Cecilia Rodriguez</a>
+          <p class="see-all"><a href="people.html#contributors">See everyone who contributed</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Concept map</span>
+          <h2>Concepts introduced</h2>
+        </div>
+        <input id="conceptSearch" class="search" type="search" placeholder="Filter concepts or notebooks">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Notebook</th>
+              <th>Concept</th>
+              <th>Files</th>
+            </tr>
+          </thead>
+          <tbody id="conceptTable">
+            <tr data-search="pandas dataframe create read_csv to_csv load save inspect head info shape">
+              <td><span class="pill">pandas</span></td>
+              <td>Creating, loading, saving and inspecting DataFrames.</td>
+              <td><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/ehr_parkinsons.csv">EHR dataset</a></td>
+            </tr>
+            <tr data-search="pandas select filter iloc loc mask conditions sort_values">
+              <td><span class="pill">pandas</span></td>
+              <td>Selecting columns and rows (<code>.iloc</code>, <code>.loc</code>), filtering with conditions, and sorting.</td>
+              <td><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="pandas clean columns rename drop dtypes to_numeric to_datetime missing values isna dropna fillna categories text str lower strip">
+              <td><span class="pill">pandas</span></td>
+              <td>Adding, renaming and removing columns; data types, missing values, categories and messy text.</td>
+              <td><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="pandas groupby merge concat combine tables">
+              <td><span class="pill">pandas</span></td>
+              <td>Grouping rows and combining tables.</td>
+              <td><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/patients.csv">Patients table</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/medications.csv">Medications table</a></td>
+            </tr>
+            <tr data-search="pandas map apply lambda agg transform summarise">
+              <td><span class="pill">pandas</span></td>
+              <td>Transforming and summarising with <code>.map()</code>, <code>.apply()</code>, <code>.agg()</code> and <code>.transform()</code>.</td>
+              <td><a href="rendered-notebooks/tutorial_2/pandas_intro_EHR.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="time series ecg physionet mit-bih summary statistics plotting wfdb">
+              <td><span class="pill">Time series A</span></td>
+              <td>A time series as numbers plus a clock: describing and plotting an ECG signal.</td>
+              <td><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="time series nan missing imputation smoothing moving average normalisation z-score filtering band-pass resampling downsampling nyquist">
+              <td><span class="pill">Time series A</span></td>
+              <td>Cleaning a signal: missing data, smoothing, normalisation, filtering and resampling.</td>
+              <td><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="time series peak detection find_peaks rr intervals heart rate features">
+              <td><span class="pill">Time series A</span></td>
+              <td>Detecting heartbeats and extracting features such as RR intervals and heart rate.</td>
+              <td><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="time series accelerometer wearable pads smartwatch sampling rate timestamps filtering">
+              <td><span class="pill">Time series B</span></td>
+              <td>Loading, plotting, downsampling and filtering wearable accelerometer data.</td>
+              <td><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/pads10_accelerometer_data.csv">PADS extract</a></td>
+            </tr>
+            <tr data-search="time series windowing epoching time-domain features variance iqr rms vector magnitude correlation">
+              <td><span class="pill">Time series B</span></td>
+              <td>Windowing, per-window features, the signal vector magnitude and a correlation check.</td>
+              <td><a href="rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="end of day task link wearable features ehr tremor most recent visit combine interpret">
+              <td><span class="pill">End-of-day task</span></td>
+              <td>Linking tremor features from rest recordings to each patient's most recent clinic visit.</td>
+              <td><a href="rendered-notebooks/tutorial_2/end_of_day_task.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_2/data/wearable_rest_recordings.csv">Rest recordings</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>Tutorial 2 page for Module 3.</footer>
+  </div>
+  <script src="site.js"></script>
+  <script>
+    const input = document.getElementById("conceptSearch");
+    const rows = Array.from(document.querySelectorAll("#conceptTable tr"));
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase();
+      rows.forEach((row) => {
+        const haystack = (row.dataset.search || row.textContent).toLowerCase();
+        row.style.display = haystack.includes(query) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

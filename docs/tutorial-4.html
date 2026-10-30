@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial 4 | Module 3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-marirena">
+  <div class="shell">
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="tutorial-1.html">Tutorial 1</a>
+      <a href="tutorial-2.html">Tutorial 2</a>
+      <a href="tutorial-3.html">Tutorial 3</a>
+      <a class="active" href="tutorial-4.html">Tutorial 4</a>
+      <a href="resources.html">Resources</a>
+      <a href="files.html">Files</a>
+      <a href="people.html">People</a>
+    </nav>
+
+    <header class="banner">
+      <span class="eyebrow">Tutorial 4</span>
+      <h1>Introduction to machine learning</h1>
+      <p class="lead">
+        Supervised and unsupervised machine learning workflows built around proteomics and clinical variables,
+        including model preparation, evaluation, dimensionality reduction, clustering, and the final challenge.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="duo">
+        <div class="mini-panel">
+          <span class="eyebrow">Primary files</span>
+          <h3>Notebook entry points</h3>
+          <ul>
+            <li><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Intro_toML notebook</a> (the challenge brief is at the end)</li>
+            <li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/README.md">Tutorial 4 README</a></li>
+          </ul>
+        </div>
+        <aside class="contributors">
+          <span class="eyebrow">Tutorial lead</span>
+          <h3>Your tutorial lead</h3>
+          <a class="focus-name" href="mailto:marirena.bafaloukou22@imperial.ac.uk" title="Email Marirena Bafaloukou">Marirena Bafaloukou</a>
+          <p class="see-all"><a href="people.html#contributors">See everyone who contributed</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Concept map</span>
+          <h2>Concepts introduced</h2>
+        </div>
+        <input id="conceptSearch" class="search" type="search" placeholder="Filter concepts or files">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Concept</th>
+              <th>Focus</th>
+              <th>Files</th>
+            </tr>
+          </thead>
+          <tbody id="conceptTable">
+            <tr data-search="statistics to machine learning supervised learning training testing regression classification">
+              <td>ML foundations</td>
+              <td>Bridge from statistics to machine learning, supervised learning basics, and train/test framing.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a> / <a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/README.md">Guide</a></td>
+            </tr>
+            <tr data-search="regression tremor severity split missing values scaling coefficients mae mse r2">
+              <td>Regression workflow</td>
+              <td>Predicting tremor severity with data splitting, checking for missing values, scaling, fitting, and regression metrics.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Proteomics_tremor_PD.csv">Dataset</a></td>
+            </tr>
+            <tr data-search="classification disease status repeated measures imbalance feature selection logistic regression confusion matrix precision recall">
+              <td>Classification workflow</td>
+              <td>Predicting disease status with repeated measures awareness, stratified splitting for class imbalance, feature selection, and evaluation.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a></td>
+            </tr>
+            <tr data-search="dimensionality reduction pca umap explained variance feature extraction unsupervised learning">
+              <td>Dimensionality reduction</td>
+              <td>PCA, UMAP, explained variance, and unsupervised feature extraction.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/DF_for_unsupervised.csv">Dataset</a></td>
+            </tr>
+            <tr data-search="clustering elbow silhouette kmeans challenge organ aging plasma proteomics">
+              <td>Clustering and challenge</td>
+              <td>Cluster selection, clinical interpretation, and the organ-specific aging challenge brief.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Data_for_challenge.csv">Challenge data</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>Tutorial 4 page for Module 3.</footer>
+  </div>
+  <script src="site.js"></script>
+  <script>
+    const input = document.getElementById("conceptSearch");
+    const rows = Array.from(document.querySelectorAll("#conceptTable tr"));
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase();
+      rows.forEach((row) => {
+        const haystack = (row.dataset.search || row.textContent).toLowerCase();
+        row.style.display = haystack.includes(query) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

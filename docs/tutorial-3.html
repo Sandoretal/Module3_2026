@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial 3 | Module 3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-anastasia">
+  <div class="shell">
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="tutorial-1.html">Tutorial 1</a>
+      <a href="tutorial-2.html">Tutorial 2</a>
+      <a class="active" href="tutorial-3.html">Tutorial 3</a>
+      <a href="tutorial-4.html">Tutorial 4</a>
+      <a href="resources.html">Resources</a>
+      <a href="files.html">Files</a>
+      <a href="people.html">People</a>
+    </nav>
+
+    <header class="banner">
+      <span class="eyebrow">Tutorial 3</span>
+      <h1>Electronic Healthcare Records with pandas</h1>
+      <p class="lead">
+        This tutorial is split across two notebook parts: preparing real-world clinical data for analysis
+        (visualisation, outliers, duplicates, and missing data), then choosing, running, and reporting statistical tests.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="duo">
+        <div class="mini-panel">
+          <span class="eyebrow">Primary files</span>
+          <h3>Notebook entry points</h3>
+          <ul>
+            <li><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Part 1 exercises</a></li>
+            <li><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Part 2 exercises</a></li>
+            <li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/data/pd_bloodwork.csv">Bloodwork dataset</a></li>
+            <li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_3/README.md">Tutorial 3 README</a></li>
+          </ul>
+        </div>
+        <aside class="contributors">
+          <span class="eyebrow">Tutorial lead</span>
+          <h3>Your tutorial lead</h3>
+          <a class="focus-name" href="mailto:jared.maina@imperial.ac.uk" title="Email Jared Maina">Jared Maina</a>
+          <p class="see-all"><a href="people.html#contributors">See everyone who contributed</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Concept map</span>
+          <h2>Concepts introduced</h2>
+        </div>
+        <input id="conceptSearch" class="search" type="search" placeholder="Filter concepts or parts">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Part</th>
+              <th>Concept</th>
+              <th>Files</th>
+            </tr>
+          </thead>
+          <tbody id="conceptTable">
+            <tr data-search="part 1 categorical data value_counts cut crosstab plot">
+              <td><span class="pill">Part 1</span></td>
+              <td>Visualising categorical data with counts, binning, cross-tabulation, and bar charts.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 1 continuous data describe summary histograms log1p box violin scatter seaborn">
+              <td><span class="pill">Part 1</span></td>
+              <td>Summarising and visualising continuous data: summary measures, histograms, log scales, box, violin, and scatter plots.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 1 outliers data entry errors quantile between clip boolean masks">
+              <td><span class="pill">Part 1</span></td>
+              <td>Flagging outliers and data-entry errors, and deciding what to do with them.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 1 duplicates duplicated drop_duplicates groupby agg">
+              <td><span class="pill">Part 1</span></td>
+              <td>Finding and resolving duplicate records.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 1 missing data isna dropna fillna iterativeimputer imputation bloodwork challenge cleaning workflow">
+              <td><span class="pill">Part 1</span></td>
+              <td>Describing, diagnosing, and handling missing data, plus the bloodwork challenge and a cleaning workflow for clinical data.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part1_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 2 hypothesis test p-value confidence interval permutation numpy groupby">
+              <td><span class="pill">Part 2</span></td>
+              <td>What a statistical test does: p-values, confidence intervals, and a permutation test built from scratch.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 2 choosing a test assumptions qq plots shapiro levene parametric non-parametric">
+              <td><span class="pill">Part 2</span></td>
+              <td>Checking assumptions and choosing between parametric and non-parametric tests.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 2 comparing groups ttest_ind mannwhitneyu f_oneway anova kruskal">
+              <td><span class="pill">Part 2</span></td>
+              <td>Comparing groups with t-tests, Mann–Whitney U, ANOVA, and Kruskal–Wallis.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 2 associations pearson spearman corr crosstab chi2_contingency chi squared">
+              <td><span class="pill">Part 2</span></td>
+              <td>Measuring associations with correlations and testing categorical data with chi-squared tests.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Exercises</a></td>
+            </tr>
+            <tr data-search="part 2 multiple comparisons combinations multipletests bonferroni fdr reporting results">
+              <td><span class="pill">Part 2</span></td>
+              <td>Correcting for multiple comparisons and reporting a result in one clear sentence.</td>
+              <td><a href="rendered-notebooks/tutorial_3/pandas_ehr_tutorial_part2_2026_exercises.html">Exercises</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>Tutorial 3 page for Module 3.</footer>
+  </div>
+  <script src="site.js"></script>
+  <script>
+    const input = document.getElementById("conceptSearch");
+    const rows = Array.from(document.querySelectorAll("#conceptTable tr"));
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase();
+      rows.forEach((row) => {
+        const haystack = (row.dataset.search || row.textContent).toLowerCase();
+        row.style.display = haystack.includes(query) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
