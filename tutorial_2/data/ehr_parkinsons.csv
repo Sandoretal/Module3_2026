@@ -1,0 +1,15 @@
+patient_id,sex,date_of_birth,visit_date,clinic_id,updrs_iii,ledd_mg,medication,bmi
+P01,Male,1950-05-14,2023-01-10,101,22.0,300,Co-careldopa,22.5
+P02,Female,1965-08-22,2023-01-15,102,30.0,150,Rotigotine,25.0
+P03,Female,1970-11-30,2023-02-01,101,40.0,800,Co-beneldopa,30.0
+P04,Male,1980-01-15,2023-03-14,103,12.0,0,,28.0
+P05,Male,1958-03-02,2023-04-21,102,35.0,450,Pramipexole,26.4
+P01,Male,1950-05-14,2023-07-12,101,25.0,400,co-careldopa ,22.7
+P02,Female,1965-08-22,2023-09-03,102,,300,rotigotine,not recorded
+P03,Female,1970-11-30,2023-10-06,101,42.0,850,co-beneldopa,31.2
+P05,Male,1958-03-02,2023-11-30,102,38.0,600,Co-careldopa + Entacapone,26.1
+P06,Female,1955-12-01,2024-01-09,103,27.0,400,Ropinirole,21.9
+P01,Male,1950-05-14,2024-02-08,101,28.0,500,CO-CARELDOPA,23.1
+P02,Female,1965-08-22,2024-03-20,102,31.0,300, Rotigotine,24.0
+P05,Male,1958-03-02,2024-05-17,102,41.0,750,co-careldopa + entacapone ,not recorded
+P04,Male,1980-01-15,2024-06-04,103,,0,,27.6

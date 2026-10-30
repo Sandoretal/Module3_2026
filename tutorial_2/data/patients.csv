@@ -1,0 +1,4 @@
+patient_id,age_at_diagnosis,smoking_status
+P01,66,Former
+P02,55,Never
+P03,50,Never

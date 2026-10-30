@@ -1,0 +1,19 @@
+# macOS / editor files
+.DS_Store
+.Rhistory
+.ipynb_checkpoints/
+
+# Instructor-only material (do not publish to students)
+tutorial_4/instructor/
+Slides/
+Slides/
+docs/
+
+
+# Student solutions (do not publish to students before the tutorial)
+tutorial_3/solutions/
+tutorial_4/solutions/
+
+
+
+CLAUDE.md/
