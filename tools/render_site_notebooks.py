@@ -11,7 +11,7 @@ on the way:
 - the "Solution" row of the "How this notebook works" legend is removed.
 
 Afterwards it rebuilds docs/notebook-index.js, the list of notebook sections
-that the site search uses.
+that the site search uses, and the per-tutorial downloads in docs/downloads/.
 
 The source notebooks are not modified.
 
@@ -138,6 +138,10 @@ def main():
     # Refresh the notebook section index used by the site search (docs/search.html).
     import build_search_index
     build_search_index.main()
+
+    # Refresh the per-tutorial downloads (docs/downloads/tutorial_N.zip).
+    import build_tutorial_zips
+    build_tutorial_zips.main()
 
 
 if __name__ == "__main__":

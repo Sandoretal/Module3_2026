@@ -384,12 +384,49 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Download icons next to each notebook and dataset                    */
+  /* ------------------------------------------------------------------ */
+
+  // Browsers ignore the download attribute for files on another site
+  // (GitHub), so fetch the file and save it. If that fails, the link simply
+  // opens the raw file, which can be saved with Cmd/Ctrl+S.
+  function initDownloads() {
+    document.addEventListener("click", async (event) => {
+      const link = event.target.closest("a.download-icon[data-download]");
+      if (!link || event.metaKey || event.ctrlKey || event.shiftKey) {
+        return;
+      }
+      event.preventDefault();
+      link.classList.add("is-busy");
+      try {
+        const response = await fetch(link.href);
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const url = URL.createObjectURL(await response.blob());
+        const save = document.createElement("a");
+        save.href = url;
+        save.download = link.dataset.download;
+        document.body.appendChild(save);
+        save.click();
+        save.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+      } catch (error) {
+        window.open(link.href, "_blank", "noopener");
+      } finally {
+        link.classList.remove("is-busy");
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
 
   function init() {
     initTodayBanner();
     initChecklist();
     initGlossaryLinks();
     initFeedback();
+    initDownloads();
   }
 
   if (document.readyState === "loading") {

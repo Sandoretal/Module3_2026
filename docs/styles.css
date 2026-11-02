@@ -1960,3 +1960,62 @@ body.dark-mode .gloss-link {
     grid-column: 1 / -1;
   }
 }
+
+.download-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+@media print {
+  .download-note {
+    display: none;
+  }
+}
+
+.download-all {
+  margin: 14px 0 0;
+}
+
+@media print {
+  .download-all {
+    display: none;
+  }
+}
+
+/* Download icon after each notebook and dataset */
+.download-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-left: 4px;
+  border-radius: 8px;
+  color: var(--muted);
+  vertical-align: -6px;
+  text-decoration: none;
+}
+
+.download-icon:hover,
+.download-icon:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.download-icon.is-busy {
+  opacity: 0.4;
+}
+
+body.dark-mode .download-icon {
+  color: var(--muted);
+}
+
+body.dark-mode .download-icon:hover {
+  color: var(--ink);
+}
+
+@media print {
+  .download-icon {
+    display: none;
+  }
+}
