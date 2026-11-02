@@ -56,6 +56,7 @@ body.theme-anastasia {
   --gold: #ffd166;
   --navy: #005f73;
   --berry: #ee6c4d;
+  --pill-end: #d6336c;
   background:
     radial-gradient(circle at 0% 0%, rgba(255, 111, 60, 0.28), transparent 28%),
     radial-gradient(circle at 100% 0%, rgba(10, 147, 150, 0.26), transparent 24%),
@@ -99,6 +100,7 @@ body.colorblind-friendly.theme-marirena {
   --gold: #f0e442;
   --navy: #1f1f1f;
   --berry: #009e73;
+  --pill-end: var(--berry);
   --muted: #31413d;
   background:
     radial-gradient(circle at 0% 0%, rgba(213, 94, 0, 0.18), transparent 28%),
@@ -121,6 +123,7 @@ body.high-contrast.colorblind-friendly.theme-marirena {
   --surface-strong: #ffffff;
   --ink: #000000;
   --muted: #111111;
+  --pill-end: var(--berry);
   --line: rgba(0, 0, 0, 0.55);
   --coral: #000000;
   --teal: #003cff;
@@ -438,7 +441,7 @@ tbody tr:hover {
   margin-top: 10px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--coral), var(--berry));
+  background: linear-gradient(135deg, var(--coral), var(--pill-end, var(--berry)));
   color: #fff;
   font-weight: 800;
   letter-spacing: 0.03em;
@@ -752,6 +755,27 @@ kbd {
   object-fit: cover;
   background: var(--line);
   box-shadow: 0 8px 20px rgba(16, 35, 33, 0.14);
+}
+
+.contributors .plain-name {
+  display: inline-block;
+  margin: 10px 0 0 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--coral) 22%, transparent),
+    color-mix(in srgb, var(--pill-end, var(--berry)) 22%, transparent));
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 0 1px rgba(0, 0, 0, 0.35);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.contributors .credit-note {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 .contributors .see-all {

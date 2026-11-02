@@ -7,8 +7,7 @@
 
 ### Imperial College London
 
-### Contributors: [to be added]
-w
+### Contributors: Cecilia Rodriguez, Katarzyna Zoltowska, Anastasia Ilina, Marirena Bafaloukou, Jared Maina, Ratneshwaran Maheswaran, Rishideep Chatterjee, Sahar Rahbar, Cynthia Sandor
 ### Autumn 2026
 
 ---

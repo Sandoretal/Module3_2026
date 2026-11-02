@@ -7,7 +7,7 @@
 
 ### Imperial College London
 
-### Contributors: Anastasia Ilina, Jared Maina, Cecilia Rodriguez, Marirena Bafaloukou, Katarzyna Zoltowska, Rishideep Chatterjee, Sahar Rahbar, Cynthia Sandor
+### Contributors: Anastasia Ilina, Jared Maina, Cecilia Rodriguez, Katarzyna Zoltowska, Marirena Bafaloukou, Ratneshwaran Maheswaran, Rishideep Chatterjee, Sahar Rahbar, Cynthia Sandor
 
 ### Autumn 2026
 

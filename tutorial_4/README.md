@@ -67,4 +67,4 @@ The notebooks were tested with Python 3.11. It is recommended to use an environm
 * **Program:** MSc in Translational Neuroscience
 * **Institution:** Department of Brain Sciences, Faculty of Medicine, Imperial College London
 * **Term:** Autumn 2026
-* **Contributors:** Marirena Bafaloukou, Anastasia Ilina, Cecilia Rodriguez, Katarzyna Zoltowska, Rishideep Chatterjee, Sahar Rahbar, Ratneshwaran Maheswaran, Cynthia Sandor
+* **Contributors:** Marirena Bafaloukou, Anastasia Ilina, Cecilia Rodriguez, Katarzyna Zoltowska, Jared Maina, Ratneshwaran Maheswaran, Rishideep Chatterjee, Sahar Rahbar, Cynthia Sandor
