@@ -508,8 +508,52 @@ footer {
 }
 
 .toolbar-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   min-width: 30px;
+  min-height: 26px;
   text-align: center;
+}
+
+/* The toggle is a plain arrow, without the button box around it. */
+.accessibility-toolbar .toolbar-button.toolbar-toggle,
+body.dark-mode .accessibility-toolbar .toolbar-button.toolbar-toggle {
+  background: transparent;
+  border-color: transparent;
+}
+
+.accessibility-toolbar .toolbar-button.toolbar-toggle:hover,
+.accessibility-toolbar .toolbar-button.toolbar-toggle:focus-visible {
+  background: transparent;
+  color: var(--coral);
+}
+
+.accessibility-toolbar .toolbar-button.toolbar-toggle:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+/* The show/hide button is "Aa" and a colour wheel in both states; its
+   tooltip says whether clicking shows or hides the settings. */
+.toolbar-toggle::before {
+  content: "Aa";
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.accessibility-toolbar.is-collapsed .toolbar-toggle {
+  padding: 6px 10px;
+}
+
+.toolbar-toggle::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: conic-gradient(#e69f00, #f0e442, #009e73, #56b4e9, #0072b2, #cc79a7, #d55e00, #e69f00);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9);
 }
 
 .toolbar-label {
@@ -1797,5 +1841,115 @@ body.dark-mode .gloss-link {
 
   body.dark-mode .toolbar-controls {
     background: #1c2628;
+  }
+}
+
+/* Keep the larger "Aa" button on phones and touch screens */
+@media (max-width: 700px), (pointer: coarse) {
+  body .accessibility-toolbar.is-collapsed .toolbar-toggle::before,
+  body .accessibility-toolbar .toolbar-toggle::before {
+    font-size: 1.15rem;
+  }
+
+  body .accessibility-toolbar.is-collapsed .toolbar-toggle::before {
+    content: "Aa";
+  }
+
+  body .accessibility-toolbar:not(.is-collapsed) .toolbar-toggle::before {
+    content: "✕";
+  }
+
+  body .accessibility-toolbar.is-collapsed .toolbar-toggle::after {
+    width: 22px;
+    height: 22px;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+  }
+}
+
+/* Phones keep the solid round "Aa" button (the plain-arrow style is for computers) */
+@media (max-width: 700px), (pointer: coarse) {
+  body.dark-mode .accessibility-toolbar .toolbar-button.toolbar-toggle,
+  body .accessibility-toolbar .toolbar-button.toolbar-toggle:hover,
+  body .accessibility-toolbar .toolbar-button.toolbar-toggle:focus-visible {
+    background: var(--ink);
+    color: var(--on-ink, #fff);
+  }
+}
+
+/* Tooltip on the bar's show/hide button (computers only) */
+.toolbar-toggle {
+  position: relative;
+}
+
+.toolbar-tip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 25;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--on-ink, #fff);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.accessibility-toolbar:not(.is-collapsed) .toolbar-tip {
+  right: auto;
+  left: 0;
+}
+
+.toolbar-toggle:hover .toolbar-tip,
+.toolbar-toggle:focus-visible .toolbar-tip {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+@media (max-width: 700px), (pointer: coarse) {
+  .toolbar-tip {
+    display: none;
+  }
+}
+
+@media print {
+  .toolbar-tip {
+    display: none;
+  }
+}
+
+/* Computers: while the bar is open, the show/hide button is a ✕ and
+   looks like the other buttons; closed, it is the "Aa" + colour wheel pill. */
+@media not all and (max-width: 700px) {
+  @media (pointer: fine), (pointer: none) {
+    .accessibility-toolbar:not(.is-collapsed) .toolbar-toggle::before {
+      content: "✕";
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .accessibility-toolbar:not(.is-collapsed) .toolbar-toggle::after {
+      display: none;
+    }
+
+    body .accessibility-toolbar:not(.is-collapsed) .toolbar-button.toolbar-toggle {
+      padding: 5px 9px;
+      border-color: var(--line);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 243, 233, 0.94));
+      color: var(--ink);
+    }
+
+    body.dark-mode .accessibility-toolbar:not(.is-collapsed) .toolbar-button.toolbar-toggle {
+      background: #243032;
+    }
+
+    body .accessibility-toolbar:not(.is-collapsed) .toolbar-button.toolbar-toggle:hover {
+      background: linear-gradient(135deg, rgba(240, 228, 66, 0.3), rgba(0, 114, 178, 0.12));
+    }
   }
 }

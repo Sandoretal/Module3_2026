@@ -21,7 +21,6 @@
     toolbar.className = "accessibility-toolbar";
     toolbar.innerHTML = `
       <button type="button" class="toolbar-button toolbar-toggle" data-action="toggle-collapse" aria-expanded="true" aria-label="Minimize accessibility bar">
-        ▾
       </button>
       <div class="toolbar-controls">
         <button type="button" class="toolbar-button" data-action="toggle-contrast" aria-pressed="false">
@@ -121,11 +120,11 @@
     const toggleButton = toolbar.querySelector('[data-action="toggle-collapse"]');
     if (toggleButton) {
       toggleButton.setAttribute("aria-expanded", String(!collapsed));
-      toggleButton.setAttribute(
-        "aria-label",
-        collapsed ? "Expand accessibility bar" : "Minimize accessibility bar"
-      );
-      toggleButton.textContent = collapsed ? "▸" : "▾";
+      const tip = collapsed ? "Show display settings" : "Hide display settings";
+      toggleButton.setAttribute("aria-label", tip);
+      // The visible "Aa" + colour wheel is drawn in styles.css;
+      // the span is the tooltip shown on hover and keyboard focus.
+      toggleButton.innerHTML = `<span class="toolbar-tip" aria-hidden="true">${tip}</span>`;
     }
 
     if (collapsed) {
