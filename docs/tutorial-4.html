@@ -60,36 +60,66 @@
         <table>
           <thead>
             <tr>
+              <th>Part</th>
               <th>Concept</th>
-              <th>Focus</th>
               <th>Files</th>
             </tr>
           </thead>
           <tbody id="conceptTable">
-            <tr data-search="statistics to machine learning supervised learning training testing regression classification">
-              <td>ML foundations</td>
-              <td>Bridge from statistics to machine learning, supervised learning basics, and train/test framing.</td>
-              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a> / <a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/README.md">Guide</a></td>
+            <tr data-search="ml foundations statistics to machine learning bridge prediction inference">
+              <td><span class="pill">ML foundations</span></td>
+              <td>From statistics to machine learning: moving from explaining data to predicting new cases.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#From-Statistics-to-Machine-Learning">Notebook</a></td>
             </tr>
-            <tr data-search="regression tremor severity split missing values scaling coefficients mae mse r2">
-              <td>Regression workflow</td>
-              <td>Predicting tremor severity with data splitting, checking for missing values, scaling, fitting, and regression metrics.</td>
-              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Proteomics_tremor_PD.csv">Dataset</a></td>
+            <tr data-search="ml foundations supervised learning training testing">
+              <td><span class="pill">ML foundations</span></td>
+              <td>What supervised learning is, and why models are trained and tested on separate data.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#What-is-Supervised-Machine-Learning?">Notebook</a></td>
             </tr>
-            <tr data-search="classification disease status repeated measures imbalance feature selection logistic regression confusion matrix precision recall">
-              <td>Classification workflow</td>
-              <td>Predicting disease status with repeated measures awareness, stratified splitting for class imbalance, feature selection, and evaluation.</td>
-              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a></td>
+            <tr data-search="task 1: regression regression tremor features target merge split train test">
+              <td><span class="pill">Task 1: Regression</span></td>
+              <td>Preparing the data: choosing features and the target, merging tables and splitting into training and test sets.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#1.-Split:-Splitting-the-data-into-training-set-and-test-set.">Notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Proteomics_tremor_PD.csv">Dataset</a></td>
             </tr>
-            <tr data-search="dimensionality reduction pca umap explained variance feature extraction unsupervised learning">
-              <td>Dimensionality reduction</td>
-              <td>PCA, UMAP, explained variance, and unsupervised feature extraction.</td>
-              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/DF_for_unsupervised.csv">Dataset</a></td>
+            <tr data-search="task 1: regression missing values imputation scaling standardisation data leakage fit transform">
+              <td><span class="pill">Task 1: Regression</span></td>
+              <td>Handling missing values and scaling the features without leaking test data.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#2.-Missing-values:-The-next-important-step-in-preparing-data-for-machine-learning-is-handling-missing-values,-as-most-standard-ML-models-(such-as-those-from-scikit-learn)-cannot-process-missing-data-directly.">Notebook</a></td>
             </tr>
-            <tr data-search="clustering elbow silhouette kmeans challenge organ aging plasma proteomics">
-              <td>Clustering and challenge</td>
-              <td>Cluster selection, clinical interpretation, and the organ-specific aging challenge brief.</td>
-              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html">Rendered notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Data_for_challenge.csv">Challenge data</a></td>
+            <tr data-search="task 1: regression linear regression training coefficients mae mse rmse r2 evaluation">
+              <td><span class="pill">Task 1: Regression</span></td>
+              <td>Training a linear regression, interpreting its coefficients and evaluating it with regression metrics.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#4.-Training">Notebook</a></td>
+            </tr>
+            <tr data-search="task 2: classification classification labels repeated measures class imbalance stratified split">
+              <td><span class="pill">Task 2: Classification</span></td>
+              <td>Classification labels, repeated measures and class imbalance, with a stratified split.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#Label-Datatype-for-Classification">Notebook</a></td>
+            </tr>
+            <tr data-search="task 2: classification feature selection statistical test training set significant proteins">
+              <td><span class="pill">Task 2: Classification</span></td>
+              <td>Feature selection on the training set using statistical tests.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#3.-Selecting-features">Notebook</a></td>
+            </tr>
+            <tr data-search="task 2: classification logistic regression confusion matrix precision recall accuracy f1 coefficients">
+              <td><span class="pill">Task 2: Classification</span></td>
+              <td>Training a logistic regression and evaluating it with a confusion matrix, precision, recall and other metrics.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#5.-Training:">Notebook</a></td>
+            </tr>
+            <tr data-search="task 3: unsupervised dimensionality reduction pca umap explained variance feature extraction unsupervised">
+              <td><span class="pill">Task 3: Unsupervised</span></td>
+              <td>Dimensionality reduction with PCA and UMAP, and choosing components with explained variance.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#Introduction-to-Dimensionality-Reduction">Notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/DF_for_unsupervised.csv">Dataset</a></td>
+            </tr>
+            <tr data-search="task 3: unsupervised clustering kmeans k-means elbow inertia silhouette subtypes parkinson">
+              <td><span class="pill">Task 3: Unsupervised</span></td>
+              <td>Clustering with K-means: choosing k with the elbow method and silhouette score, and exploring subtypes of Parkinson&#x27;s disease.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#Clustering-and-Unsupervised-ML">Notebook</a></td>
+            </tr>
+            <tr data-search="challenge challenge organ aging ageing plasma proteomics regression classification reporting">
+              <td><span class="pill">Challenge</span></td>
+              <td>Plasma proteomics and organ-specific ageing: regression, classification and reporting on a new dataset.</td>
+              <td><a href="rendered-notebooks/tutorial_4/Intro_toML.html#-%F0%9F%8F%86-Challenge:-Plasma-Proteomics-and-Organ-Specific-Aging">Notebook</a><br><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Data_for_challenge.csv">Challenge data</a></td>
             </tr>
           </tbody>
         </table>
