@@ -305,8 +305,52 @@
     }, { passive: false });
   }
 
+  // "Back to top" button: appears once you have scrolled down a long page.
+  function initBackToTop() {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "back-to-top";
+    button.hidden = true;
+    button.innerHTML = '<span aria-hidden="true">↑</span> Back to top';
+    document.body.appendChild(button);
+
+    const update = () => {
+      const longPage = document.documentElement.scrollHeight > window.innerHeight * 2;
+      button.hidden = !(longPage && window.scrollY > window.innerHeight * 0.8);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+
+    button.addEventListener("click", () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      // Move keyboard focus to the top too, so Tab continues from the menu.
+      const first = document.querySelector(".site-nav a");
+      if (first) {
+        first.focus({ preventScroll: true });
+      }
+    });
+  }
+
+  // "Last updated" date in the footer, from when the page was last published.
+  function initLastUpdated() {
+    const footer = document.querySelector("footer");
+    const modified = new Date(document.lastModified);
+    // Pages without a real date report the current time; show nothing then.
+    if (!footer || Number.isNaN(modified.getTime()) || Date.now() - modified.getTime() < 60000) {
+      return;
+    }
+    const line = document.createElement("span");
+    line.className = "last-updated";
+    line.textContent = `Last updated ${modified.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`;
+    footer.appendChild(line);
+  }
+
   function init() {
     ensureToolbar();
+    initBackToTop();
+    initLastUpdated();
 
     const savedMode = localStorage.getItem(STORAGE_KEYS.colorMode) || "default";
     const savedContrast = localStorage.getItem(STORAGE_KEYS.contrastMode) || "default";

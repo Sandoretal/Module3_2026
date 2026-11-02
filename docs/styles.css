@@ -1397,10 +1397,176 @@ tr.is-done td:nth-child(3) {
   padding: 0 1px;
 }
 
+/* ---------------------------------------------------------------- */
+/* Back to top and last updated                                      */
+/* ---------------------------------------------------------------- */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 19;
+  padding: 12px 16px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+
+.back-to-top[hidden] {
+  display: none;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
+}
+
+/* On phones and touch screens the "Aa" button sits bottom-right,
+   so Back to top moves to the left and shows just the arrow. */
+@media (max-width: 700px), (pointer: coarse) {
+  .back-to-top {
+    right: auto;
+    left: 16px;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .back-to-top span {
+    font-size: 1.4rem;
+  }
+}
+
+.last-updated {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Printing: plain black on white, without the site controls         */
+/* ---------------------------------------------------------------- */
 @media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  body,
+  body.dark-mode.dark-mode.dark-mode,
+  body.high-contrast {
+    --ink: #000;
+    --muted: #333;
+    --line: #bbb;
+    --surface: #fff;
+    --surface-strong: #fff;
+    background: #fff !important;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  body::before,
+  .hero::after,
+  .section::after,
+  .banner::after,
+  .site-nav,
+  .accessibility-toolbar,
+  .magnifier-lens,
+  .back-to-top,
+  .feedback,
+  .progress,
   .progress-reset,
-  .feedback {
-    display: none;
+  .search,
+  .filters,
+  .cta-row,
+  .day-actions,
+  .calendar-hint,
+  #todayBanner,
+  .az-index {
+    display: none !important;
+  }
+
+  .shell {
+    width: 100%;
+    padding: 0;
+  }
+
+  .hero,
+  .section,
+  .banner,
+  .card,
+  .contributors,
+  .mini-panel,
+  .table-wrap,
+  .gloss-entry,
+  .today-item {
+    background: #fff !important;
+    border: 1px solid #ccc;
+    box-shadow: none !important;
+    backdrop-filter: none;
+  }
+
+  .hero,
+  .section,
+  .banner {
+    margin: 0 0 10mm;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+  }
+
+  h1 {
+    font-size: 22pt;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  tr,
+  .card,
+  .gloss-entry,
+  .contributors,
+  .today-item {
+    break-inside: avoid;
+  }
+
+  th {
+    background: #eee !important;
+  }
+
+  a {
+    color: #000 !important;
+  }
+
+  /* Show where external links go, since they can't be clicked on paper. */
+  .section a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  .eyebrow,
+  .pill,
+  .focus-name,
+  .plain-name,
+  .today-label {
+    background: none !important;
+    border: 1px solid #999;
+    color: #000 !important;
+    text-shadow: none !important;
+  }
+
+  footer {
+    color: #555;
   }
 }
 
