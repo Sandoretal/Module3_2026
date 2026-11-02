@@ -2,9 +2,15 @@
   const STORAGE_KEYS = {
     colorMode: "module3-color-mode",
     contrastMode: "module3-contrast-mode",
+    darkMode: "module3-dark-mode",
     toolbarCollapsed: "module3-toolbar-collapsed",
-    zoom: "module3-zoom"
+    zoom: "module3-zoom",
+    magnifierPower: "module3-magnifier-power"
   };
+
+  const MAGNIFIER = { size: 240, min: 1.5, max: 5, step: 0.5, defaultPower: 2.5 };
+  const THEME_VARS = ["--bg", "--bg-2", "--surface", "--surface-strong", "--ink", "--muted", "--line",
+    "--coral", "--teal", "--gold", "--navy", "--berry", "--pill-end", "--shadow", "--radius"];
 
   function ensureToolbar() {
     if (document.querySelector(".accessibility-toolbar")) {
@@ -24,6 +30,9 @@
         <button type="button" class="toolbar-button" data-action="toggle-high-contrast" aria-pressed="false">
           Contrast
         </button>
+        <button type="button" class="toolbar-button" data-action="toggle-dark" aria-pressed="false" aria-label="Dark mode">
+          Dark
+        </button>
         <button type="button" class="toolbar-button" data-action="zoom-out" aria-label="Zoom out">
           A-
         </button>
@@ -32,6 +41,9 @@
         </button>
         <button type="button" class="toolbar-button" data-action="zoom-in" aria-label="Zoom in">
           A+
+        </button>
+        <button type="button" class="toolbar-button magnifier-toggle" data-action="toggle-magnifier" aria-pressed="false" aria-label="Magnifying glass">
+          🔍
         </button>
         <button type="button" class="toolbar-button" data-action="toggle-help" aria-expanded="false" aria-label="Keyboard shortcuts">
           ?
@@ -46,6 +58,10 @@
             <li><kbd>0</kbd> reset zoom</li>
             <li><kbd>C</kbd> toggle color-blind friendly mode</li>
             <li><kbd>H</kbd> toggle high contrast mode</li>
+            <li><kbd>D</kbd> toggle dark mode</li>
+            <li><kbd>M</kbd> magnifying glass on or off</li>
+            <li><kbd>]</kbd> / <kbd>[</kbd> or <kbd>Shift</kbd> + scroll: magnify more or less</li>
+            <li><kbd>Esc</kbd> close the magnifying glass</li>
             <li><kbd>?</kbd> open or close shortcuts</li>
           </ul>
         </div>
@@ -71,8 +87,22 @@
     }
   }
 
+  function applyDarkMode(mode) {
+    document.body.classList.toggle("dark-mode", mode === "dark");
+    const button = document.querySelector('[data-action="toggle-dark"]');
+    if (button) {
+      button.setAttribute("aria-pressed", String(mode === "dark"));
+    }
+  }
+
+  function toggleDarkMode() {
+    const next = document.body.classList.contains("dark-mode") ? "light" : "dark";
+    applyDarkMode(next);
+    localStorage.setItem(STORAGE_KEYS.darkMode, next);
+  }
+
   function applyZoom(level) {
-    const clamped = Math.max(0.9, Math.min(1.4, level));
+    const clamped = Math.max(0.8, Math.min(2, level));
     document.documentElement.style.setProperty("--user-zoom", clamped.toFixed(2));
     const resetButton = document.querySelector('[data-action="zoom-reset"]');
     if (resetButton) {
@@ -110,6 +140,171 @@
     }
   }
 
+  // Magnifying glass: a round lens that follows the pointer and shows an
+  // enlarged copy of the page underneath. The copy is refreshed whenever the
+  // lens is switched on and after the page changes.
+  const magnifier = {
+    on: false,
+    power: MAGNIFIER.defaultPower,
+    lens: null,
+    content: null,
+    label: null,
+    x: 0,
+    y: 0,
+    refreshTimer: null
+  };
+
+  function readPower() {
+    try {
+      const saved = Number(localStorage.getItem(STORAGE_KEYS.magnifierPower));
+      if (saved >= MAGNIFIER.min && saved <= MAGNIFIER.max) {
+        return saved;
+      }
+    } catch (error) {
+      /* storage unavailable */
+    }
+    return MAGNIFIER.defaultPower;
+  }
+
+  function buildLens() {
+    const lens = document.createElement("div");
+    lens.className = "magnifier-lens";
+    lens.setAttribute("aria-hidden", "true");
+    lens.style.width = `${MAGNIFIER.size}px`;
+    lens.style.height = `${MAGNIFIER.size}px`;
+    const content = document.createElement("div");
+    content.className = "magnifier-content";
+    const label = document.createElement("span");
+    label.className = "magnifier-power";
+    lens.append(content, label);
+    document.body.appendChild(lens);
+    magnifier.lens = lens;
+    magnifier.content = content;
+    magnifier.label = label;
+  }
+
+  function refreshLensContent() {
+    if (!magnifier.content) {
+      return;
+    }
+    const bodyStyle = getComputedStyle(document.body);
+    const content = magnifier.content;
+    content.replaceChildren();
+    THEME_VARS.forEach((name) => {
+      content.style.setProperty(name, bodyStyle.getPropertyValue(name));
+    });
+    content.style.width = `${document.documentElement.clientWidth}px`;
+    content.style.minHeight = `${document.documentElement.scrollHeight}px`;
+    content.style.backgroundColor = bodyStyle.backgroundColor;
+    content.style.backgroundImage = bodyStyle.backgroundImage;
+    content.style.color = bodyStyle.color;
+    content.style.fontFamily = bodyStyle.fontFamily;
+    content.style.fontSize = bodyStyle.fontSize;
+    content.style.lineHeight = bodyStyle.lineHeight;
+
+    Array.from(document.body.children).forEach((child) => {
+      if (child === magnifier.lens || child.matches(".accessibility-toolbar, script")) {
+        return;
+      }
+      const copy = child.cloneNode(true);
+      copy.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
+      copy.removeAttribute("id");
+      copy.querySelectorAll("img[loading]").forEach((img) => img.removeAttribute("loading"));
+      content.appendChild(copy);
+    });
+    // Keep typed values (e.g. search boxes) visible in the copy.
+    const originals = document.body.querySelectorAll("input, textarea");
+    const copies = content.querySelectorAll("input, textarea");
+    originals.forEach((el, index) => {
+      if (copies[index]) {
+        copies[index].value = el.value;
+      }
+    });
+    positionLens();
+  }
+
+  function scheduleRefresh() {
+    if (!magnifier.on) {
+      return;
+    }
+    clearTimeout(magnifier.refreshTimer);
+    magnifier.refreshTimer = setTimeout(refreshLensContent, 150);
+  }
+
+  function positionLens() {
+    if (!magnifier.on || !magnifier.lens) {
+      return;
+    }
+    const radius = MAGNIFIER.size / 2;
+    const k = magnifier.power;
+    const pageX = magnifier.x + window.scrollX;
+    const pageY = magnifier.y + window.scrollY;
+    magnifier.lens.style.transform = `translate(${magnifier.x - radius}px, ${magnifier.y - radius}px)`;
+    magnifier.content.style.transform =
+      `translate(${radius - pageX * k}px, ${radius - pageY * k}px) scale(${k})`;
+    magnifier.label.textContent = `${k}×`;
+  }
+
+  function setMagnifierPower(power) {
+    const rounded = Math.round(power / MAGNIFIER.step) * MAGNIFIER.step;
+    magnifier.power = Math.max(MAGNIFIER.min, Math.min(MAGNIFIER.max, rounded));
+    try {
+      localStorage.setItem(STORAGE_KEYS.magnifierPower, String(magnifier.power));
+    } catch (error) {
+      /* storage unavailable */
+    }
+    positionLens();
+  }
+
+  function setMagnifier(on) {
+    magnifier.on = on;
+    const button = document.querySelector('[data-action="toggle-magnifier"]');
+    if (button) {
+      button.setAttribute("aria-pressed", String(on));
+    }
+    if (on && !magnifier.lens) {
+      buildLens();
+    }
+    if (magnifier.lens) {
+      magnifier.lens.hidden = !on;
+    }
+    document.body.classList.toggle("magnifier-active", on);
+    if (on) {
+      if (!magnifier.x && !magnifier.y) {
+        magnifier.x = window.innerWidth / 2;
+        magnifier.y = window.innerHeight / 2;
+      }
+      refreshLensContent();
+    }
+  }
+
+  function initMagnifier() {
+    magnifier.power = readPower();
+
+    document.addEventListener("pointermove", (event) => {
+      magnifier.x = event.clientX;
+      magnifier.y = event.clientY;
+      if (magnifier.on) {
+        positionLens();
+      }
+    }, { passive: true });
+
+    window.addEventListener("scroll", positionLens, { passive: true });
+    window.addEventListener("resize", scheduleRefresh);
+    document.addEventListener("input", scheduleRefresh);
+    document.addEventListener("click", scheduleRefresh);
+    document.addEventListener("toggle", scheduleRefresh, true);
+
+    document.addEventListener("wheel", (event) => {
+      if (!magnifier.on || !event.shiftKey) {
+        return;
+      }
+      event.preventDefault();
+      const delta = event.deltaY || event.deltaX;
+      setMagnifierPower(magnifier.power + (delta < 0 ? MAGNIFIER.step : -MAGNIFIER.step));
+    }, { passive: false });
+  }
+
   function init() {
     ensureToolbar();
 
@@ -120,8 +315,13 @@
 
     applyColorMode(savedMode);
     applyContrastMode(savedContrast);
+    // No saved choice yet: follow the computer's light/dark setting.
+    const savedDark = localStorage.getItem(STORAGE_KEYS.darkMode) ||
+      (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    applyDarkMode(savedDark);
     applyToolbarCollapsed(savedCollapsed);
     let zoomLevel = applyZoom(savedZoom);
+    initMagnifier();
 
     document.querySelector(".accessibility-toolbar").addEventListener("click", (event) => {
       const button = event.target.closest(".toolbar-button");
@@ -152,6 +352,16 @@
         return;
       }
 
+      if (action === "toggle-dark") {
+        toggleDarkMode();
+        return;
+      }
+
+      if (action === "toggle-magnifier") {
+        setMagnifier(!magnifier.on);
+        return;
+      }
+
       if (action === "toggle-help") {
         const panel = document.querySelector(".shortcut-panel");
         const expanded = button.getAttribute("aria-expanded") === "true";
@@ -169,11 +379,29 @@
       }
 
       localStorage.setItem(STORAGE_KEYS.zoom, String(zoomLevel));
+      scheduleRefresh();
     });
 
     document.addEventListener("keydown", (event) => {
       const activeTag = document.activeElement && document.activeElement.tagName;
       if (activeTag === "INPUT" || activeTag === "TEXTAREA" || activeTag === "SELECT") {
+        return;
+      }
+
+      if (event.metaKey || event.ctrlKey || event.altKey) {
+        return;
+      }
+
+      if (event.key === "Escape" && magnifier.on) {
+        setMagnifier(false);
+        return;
+      } else if (event.key.toLowerCase() === "m") {
+        event.preventDefault();
+        setMagnifier(!magnifier.on);
+        return;
+      } else if (magnifier.on && (event.key === "]" || event.key === "[")) {
+        event.preventDefault();
+        setMagnifierPower(magnifier.power + (event.key === "]" ? MAGNIFIER.step : -MAGNIFIER.step));
         return;
       }
 
@@ -199,6 +427,10 @@
         const nextMode = document.body.classList.contains("high-contrast") ? "default" : "high";
         applyContrastMode(nextMode);
         localStorage.setItem(STORAGE_KEYS.contrastMode, nextMode);
+        scheduleRefresh();
+      } else if (event.key.toLowerCase() === "d") {
+        event.preventDefault();
+        toggleDarkMode();
       } else if (event.key === "?") {
         event.preventDefault();
         if (document.querySelector(".accessibility-toolbar").classList.contains("is-collapsed")) {
@@ -210,6 +442,8 @@
         button.setAttribute("aria-expanded", String(!expanded));
         panel.hidden = expanded;
       }
+
+      scheduleRefresh();
     });
   }
 

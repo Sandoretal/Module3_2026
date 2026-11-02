@@ -6,7 +6,7 @@
   <title>Tutorial 4 | Module 3</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="theme-marirena">
+<body data-tutorial="4" class="theme-marirena">
   <div class="shell">
     <nav class="site-nav">
       <a href="index.html">Home</a>
@@ -16,7 +16,7 @@
       <a href="tutorial-3.html">Tutorial 3</a>
       <a class="active" href="tutorial-4.html">Tutorial 4</a>
       <a href="resources.html">Resources</a>
-      <a href="files.html">Files</a>
+      <a href="glossary.html">Glossary</a>
       <a href="people.html">People</a>
     </nav>
 
@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="concepts">
       <div class="section-head">
         <div>
           <span class="eyebrow">Concept map</span>
@@ -99,6 +99,8 @@
     <footer>Tutorial 4 page for Module 3.</footer>
   </div>
   <script src="site.js"></script>
+  <script src="glossary-data.js"></script>
+  <script src="features.js"></script>
   <script>
     const input = document.getElementById("conceptSearch");
     const rows = Array.from(document.querySelectorAll("#conceptTable tr"));

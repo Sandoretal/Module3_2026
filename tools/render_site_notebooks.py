@@ -10,6 +10,9 @@ on the way:
   "What do you observe?" questions are dropped;
 - the "Solution" row of the "How this notebook works" legend is removed.
 
+Afterwards it rebuilds docs/notebook-index.js, the list of notebook sections
+that the site search uses.
+
 The source notebooks are not modified.
 
 Usage (from the repository root):
@@ -131,6 +134,10 @@ def main():
 
     if problems:
         sys.exit("Rendered HTML is not clean:\n" + "\n".join(problems))
+
+    # Refresh the notebook section index used by the site search (docs/search.html).
+    import build_search_index
+    build_search_index.main()
 
 
 if __name__ == "__main__":

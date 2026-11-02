@@ -22,13 +22,14 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: calc(16px * var(--user-zoom));
 }
 
 body {
   margin: 0;
   color: var(--ink);
   font-family: "Avenir Next", "Trebuchet MS", "Gill Sans", sans-serif;
-  font-size: calc(16px * var(--user-zoom));
+  font-size: 1rem;
   background:
     radial-gradient(circle at 0% 0%, rgba(239, 91, 63, 0.28), transparent 28%),
     radial-gradient(circle at 100% 0%, rgba(0, 127, 122, 0.24), transparent 24%),
@@ -95,11 +96,11 @@ body.colorblind-friendly.theme-katarzyna,
 body.colorblind-friendly.theme-anastasia,
 body.colorblind-friendly.theme-cecilia,
 body.colorblind-friendly.theme-marirena {
-  --coral: #d55e00;
+  --coral: #b84f00;
   --teal: #0072b2;
   --gold: #f0e442;
   --navy: #1f1f1f;
-  --berry: #009e73;
+  --berry: #00785a;
   --pill-end: var(--berry);
   --muted: #31413d;
   background:
@@ -214,7 +215,7 @@ a {
   margin-bottom: 12px;
   padding: 6px 11px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(239, 91, 63, 0.12), rgba(192, 54, 120, 0.12));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--coral) 12%, transparent), color-mix(in srgb, var(--berry) 12%, transparent));
   color: var(--berry);
   font-size: 0.82rem;
   font-weight: 800;
@@ -388,7 +389,7 @@ tbody tr:hover {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(0, 127, 122, 0.14), rgba(21, 62, 117, 0.14));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--teal) 14%, transparent), color-mix(in srgb, var(--navy) 14%, transparent));
   color: var(--teal);
   font-size: 0.78rem;
   font-weight: 800;
@@ -765,8 +766,7 @@ kbd {
   background: linear-gradient(135deg,
     color-mix(in srgb, var(--coral) 22%, transparent),
     color-mix(in srgb, var(--pill-end, var(--berry)) 22%, transparent));
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 0 1px rgba(0, 0, 0, 0.35);
+  color: color-mix(in srgb, var(--coral) 55%, #000);
   font-weight: 800;
   letter-spacing: 0.03em;
 }
@@ -790,12 +790,12 @@ kbd {
 }
 
 .pill.lecture {
-  background: linear-gradient(135deg, rgba(239, 91, 63, 0.16), rgba(192, 54, 120, 0.16));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--coral) 16%, transparent), color-mix(in srgb, var(--berry) 16%, transparent));
   color: var(--berry);
 }
 
 .pill.practical {
-  background: rgba(21, 62, 117, 0.12);
+  background: color-mix(in srgb, var(--navy) 12%, transparent);
   color: #153e75;
 }
 
@@ -956,4 +956,574 @@ button.button {
   margin-top: 10px;
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+/* Magnifying glass (toggled from the accessibility bar) */
+.magnifier-lens {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 16px 40px rgba(0, 0, 0, 0.3);
+  background: var(--surface-strong);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.magnifier-lens[hidden] {
+  display: none;
+}
+
+.magnifier-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.magnifier-content * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.magnifier-power {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-ink, #fff);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* Any toolbar setting that is switched on (colour-blind, contrast, magnifier) */
+.toolbar-button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-ink, #fff);
+}
+
+@media (hover: none) {
+  .magnifier-toggle,
+  .magnifier-lens {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Shared helpers                                                    */
+/* ---------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.site-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.site-search .search {
+  flex: 1 1 260px;
+  width: auto;
+  max-width: 560px;
+  font-size: 1.05rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Today banner (home page)                                          */
+/* ---------------------------------------------------------------- */
+.today-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.today-item.is-done {
+  opacity: 0.55;
+}
+
+.today-item.is-now {
+  border: 2px solid var(--coral);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--coral) 18%, transparent);
+}
+
+.today-item.is-now .today-label {
+  background: linear-gradient(135deg, var(--coral), var(--pill-end, var(--berry)));
+}
+
+.today-item.is-later .today-label {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.today-item.is-done .today-label {
+  background: var(--muted);
+}
+
+.today-item.is-study {
+  background: transparent;
+  border-style: dashed;
+}
+
+.today-item.is-study strong {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.today-list + .today-note {
+  margin-top: 12px;
+}
+
+.today-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+}
+
+.today-item strong {
+  font-size: 1.05rem;
+}
+
+.today-item p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.today-label {
+  flex: none;
+  min-width: 92px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-ink, #fff);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.today-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Anchor targets should not hide under the top of the window */
+.schedule-day,
+#concepts,
+#files {
+  scroll-margin-top: 20px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Progress checklist (tutorial pages)                               */
+/* ---------------------------------------------------------------- */
+.progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 14px;
+}
+
+.progress-bar {
+  flex: 1 1 220px;
+  max-width: 420px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--navy));
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+#conceptTable .pill {
+  white-space: nowrap;
+}
+
+th.done-col,
+td.done-col {
+  width: 64px;
+  text-align: center;
+}
+
+.done-box {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+
+tr.is-done td:not(.done-col) {
+  color: var(--muted);
+}
+
+tr.is-done td:nth-child(3) {
+  text-decoration: line-through;
+  text-decoration-color: var(--line);
+}
+
+/* Glossary links inside the concept tables */
+.gloss-link {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  cursor: help;
+}
+
+.gloss-link:hover {
+  color: var(--navy);
+}
+
+/* ---------------------------------------------------------------- */
+/* Feedback (tutorial pages)                                         */
+/* ---------------------------------------------------------------- */
+.feedback-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.feedback-alt {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Glossary page                                                     */
+/* ---------------------------------------------------------------- */
+.az-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.az-index a {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.az-index a.is-empty {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.gloss-letter {
+  margin: 22px 0 8px;
+  font-size: 1.4rem;
+  color: var(--navy);
+  scroll-margin-top: 20px;
+}
+
+.gloss-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.gloss-entry {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  scroll-margin-top: 40px;
+}
+
+.gloss-entry[hidden],
+.gloss-group[hidden] {
+  display: none;
+}
+
+.gloss-entry.is-target {
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
+}
+
+.gloss-entry dt {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.gloss-aliases {
+  display: block;
+  margin-top: 2px;
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.gloss-entry dd {
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.gloss-tutorial {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- */
+/* Search page                                                       */
+/* ---------------------------------------------------------------- */
+.search-scopes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.scope {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.scope span {
+  margin-left: 4px;
+  color: var(--muted);
+}
+
+.scope.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-ink, #fff);
+}
+
+.scope.is-active span {
+  color: inherit;
+}
+
+.search-status {
+  margin: 0 0 8px;
+  color: var(--muted);
+}
+
+.result-group {
+  margin-top: 18px;
+}
+
+.result-group h2 {
+  font-size: 1.2rem;
+  margin: 0 0 8px;
+}
+
+.result-list {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.result-list li {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+}
+
+.result-list a {
+  font-weight: 800;
+}
+
+.result-list .pill {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.result-list p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.result-list mark {
+  background: color-mix(in srgb, var(--gold) 55%, transparent);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+@media print {
+  .progress-reset,
+  .feedback {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Dark mode (toggled from the accessibility bar)                    */
+/* The repeated class raises specificity above the page themes and   */
+/* colour-blind mode, so dark colours win while the accents stay.    */
+/* ---------------------------------------------------------------- */
+body.dark-mode.dark-mode.dark-mode {
+  color-scheme: dark;
+  --bg: #11181a;
+  --bg-2: #0d1314;
+  --surface: rgba(30, 39, 41, 0.92);
+  --surface-strong: #1c2628;
+  --ink: #edf3f1;
+  --muted: #a8b7b2;
+  --line: rgba(237, 243, 241, 0.16);
+  --shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
+  --on-ink: #10191b;
+  --accent-text: color-mix(in srgb, var(--berry) 45%, #ffffff);
+  --link: #9cc8ff;
+  background:
+    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--coral) 16%, transparent), transparent 30%),
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--teal) 16%, transparent), transparent 26%),
+    linear-gradient(180deg, #0d1314 0%, #11181a 50%, #141c1e 100%);
+}
+
+body.high-contrast.dark-mode.dark-mode.dark-mode {
+  --surface: #000000;
+  --surface-strong: #000000;
+  --ink: #ffffff;
+  --muted: #f2f2f2;
+  --line: rgba(255, 255, 255, 0.7);
+  --on-ink: #000000;
+  --accent-text: #ffffff;
+  --link: #8fd3ff;
+  background: #000000;
+}
+
+body.dark-mode::before {
+  opacity: 0.25;
+}
+
+body.dark-mode a {
+  color: var(--link);
+}
+
+body.dark-mode .hero,
+body.dark-mode .section,
+body.dark-mode .banner {
+  background: linear-gradient(140deg, rgba(30, 39, 41, 0.95), rgba(23, 31, 33, 0.92));
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .site-nav a {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--line);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+body.dark-mode .site-nav a.active,
+body.dark-mode .button.primary,
+body.dark-mode .contributors a.focus-name,
+body.dark-mode .today-badge {
+  color: #ffffff;
+}
+
+body.dark-mode .contributors,
+body.dark-mode .table-wrap,
+body.dark-mode .contributor-cards li,
+body.dark-mode .contributors-list li,
+body.dark-mode .mini-panel,
+body.dark-mode .stat,
+body.dark-mode .card {
+  background-color: var(--surface-strong);
+  border-color: var(--line);
+}
+
+body.dark-mode .search,
+body.dark-mode .button.secondary,
+body.dark-mode .toolbar-button:not([aria-pressed="true"]),
+body.dark-mode .accessibility-toolbar,
+body.dark-mode .shortcut-panel,
+body.dark-mode kbd {
+  background: #243032;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+body.dark-mode .eyebrow,
+body.dark-mode .pill,
+body.dark-mode .pill.lecture,
+body.dark-mode .pill.practical {
+  color: var(--accent-text);
+}
+
+body.dark-mode .pill.study {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .toolbar-label,
+body.dark-mode .gloss-letter,
+body.dark-mode .gloss-link:hover {
+  color: var(--link);
+}
+
+body.dark-mode .contributors .plain-name {
+  color: color-mix(in srgb, var(--coral) 45%, #ffffff);
+}
+
+body.dark-mode .magnifier-lens {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.8), 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode img {
+  filter: brightness(0.92);
+}
+
+body.dark-mode .gloss-link {
+  color: inherit;
+}
+
+.progress-reset[hidden] {
+  display: none;
 }

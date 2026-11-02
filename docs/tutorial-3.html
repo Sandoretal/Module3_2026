@@ -6,7 +6,7 @@
   <title>Tutorial 3 | Module 3</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="theme-anastasia">
+<body data-tutorial="3" class="theme-anastasia">
   <div class="shell">
     <nav class="site-nav">
       <a href="index.html">Home</a>
@@ -16,7 +16,7 @@
       <a class="active" href="tutorial-3.html">Tutorial 3</a>
       <a href="tutorial-4.html">Tutorial 4</a>
       <a href="resources.html">Resources</a>
-      <a href="files.html">Files</a>
+      <a href="glossary.html">Glossary</a>
       <a href="people.html">People</a>
     </nav>
 
@@ -51,7 +51,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="concepts">
       <div class="section-head">
         <div>
           <span class="eyebrow">Concept map</span>
@@ -127,6 +127,8 @@
     <footer>Tutorial 3 page for Module 3.<br>Original version (2025): Anastasia Ilina. Revised and restructured (2026): Jared Maina.</footer>
   </div>
   <script src="site.js"></script>
+  <script src="glossary-data.js"></script>
+  <script src="features.js"></script>
   <script>
     const input = document.getElementById("conceptSearch");
     const rows = Array.from(document.querySelectorAll("#conceptTable tr"));
