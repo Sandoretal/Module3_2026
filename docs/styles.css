@@ -1556,12 +1556,16 @@ body.dark-mode .gloss-link {
   }
 
   body .accessibility-toolbar .toolbar-button.toolbar-toggle {
-    width: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
     height: 56px;
     min-width: 56px;
-    padding: 0;
+    padding: 0 16px 0 18px;
     border: 0;
-    border-radius: 50%;
+    border-radius: 999px;
     background: var(--ink);
     color: var(--on-ink, #fff);
     font-size: 0;
@@ -1574,8 +1578,22 @@ body.dark-mode .gloss-link {
     font-weight: 800;
   }
 
+  /* Colour wheel next to "Aa": text size and colour settings live here */
+  .toolbar-toggle::after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: conic-gradient(#e69f00, #f0e442, #009e73, #56b4e9, #0072b2, #cc79a7, #d55e00, #e69f00);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+  }
+
   .accessibility-toolbar:not(.is-collapsed) .toolbar-toggle::before {
     content: "✕";
+  }
+
+  .accessibility-toolbar:not(.is-collapsed) .toolbar-toggle::after {
+    display: none;
   }
 
   .toolbar-controls {
