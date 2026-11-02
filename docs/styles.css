@@ -770,6 +770,11 @@ kbd {
   color: var(--berry);
 }
 
+.pill.practical {
+  background: rgba(21, 62, 117, 0.12);
+  color: #153e75;
+}
+
 .pill.study {
   background: rgba(16, 35, 33, 0.07);
   color: var(--muted);
