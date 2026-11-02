@@ -1527,3 +1527,91 @@ body.dark-mode .gloss-link {
 .progress-reset[hidden] {
   display: none;
 }
+
+/* ---------------------------------------------------------------- */
+/* Accessibility bar on phones and touch screens (iPad, tablets,     */
+/* foldables): one round "Aa" button in the corner that opens a      */
+/* panel of large, easy-to-tap buttons.                              */
+/* ---------------------------------------------------------------- */
+@media (max-width: 700px), (pointer: coarse) {
+  .shell {
+    padding-top: 16px;
+    padding-bottom: 90px;
+  }
+
+  body .accessibility-toolbar {
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    left: auto;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: calc(100vw - 32px);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  body .accessibility-toolbar .toolbar-button.toolbar-toggle {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--on-ink, #fff);
+    font-size: 0;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  .toolbar-toggle::before {
+    content: "Aa";
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+
+  .accessibility-toolbar:not(.is-collapsed) .toolbar-toggle::before {
+    content: "✕";
+  }
+
+  .toolbar-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: min(340px, calc(100vw - 32px));
+    padding: 12px;
+    border-radius: 18px;
+    border: 2px solid var(--line);
+    background: var(--surface-strong);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+  }
+
+  body .toolbar-controls .toolbar-button {
+    min-height: 48px;
+    padding: 10px 6px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  /* Keyboard shortcuts and the magnifier don't apply on a phone */
+  .toolbar-controls [data-action="toggle-help"],
+  .toolbar-controls .magnifier-toggle,
+  .magnifier-lens,
+  .shortcut-panel {
+    display: none;
+  }
+
+  body.dark-mode .accessibility-toolbar {
+    background: transparent;
+  }
+
+  body.dark-mode .toolbar-controls {
+    background: #1c2628;
+  }
+}

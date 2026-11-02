@@ -319,7 +319,17 @@
     const savedDark = localStorage.getItem(STORAGE_KEYS.darkMode) ||
       (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     applyDarkMode(savedDark);
-    applyToolbarCollapsed(savedCollapsed);
+    // On phones and touch screens the bar is a round "Aa" button that always
+    // starts closed (must match the media query in styles.css).
+    const phoneQuery = window.matchMedia("(max-width: 700px), (pointer: coarse)");
+    applyToolbarCollapsed(phoneQuery.matches ? true : savedCollapsed);
+
+    document.addEventListener("click", (event) => {
+      const toolbar = document.querySelector(".accessibility-toolbar");
+      if (phoneQuery.matches && !toolbar.classList.contains("is-collapsed") && !toolbar.contains(event.target)) {
+        applyToolbarCollapsed(true);
+      }
+    });
     let zoomLevel = applyZoom(savedZoom);
     initMagnifier();
 
@@ -334,7 +344,9 @@
       if (action === "toggle-collapse") {
         const collapsed = !document.querySelector(".accessibility-toolbar").classList.contains("is-collapsed");
         applyToolbarCollapsed(collapsed);
-        localStorage.setItem(STORAGE_KEYS.toolbarCollapsed, collapsed ? "1" : "0");
+        if (!phoneQuery.matches) {
+          localStorage.setItem(STORAGE_KEYS.toolbarCollapsed, collapsed ? "1" : "0");
+        }
         return;
       }
 
