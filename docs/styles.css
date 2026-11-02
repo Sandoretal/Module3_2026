@@ -1953,3 +1953,10 @@ body.dark-mode .gloss-link {
     }
   }
 }
+
+/* Reset sits on its own full-width row in the phone panel */
+@media (max-width: 700px), (pointer: coarse) {
+  .toolbar-controls .toolbar-reset {
+    grid-column: 1 / -1;
+  }
+}

@@ -44,6 +44,9 @@
         <button type="button" class="toolbar-button magnifier-toggle" data-action="toggle-magnifier" aria-pressed="false" aria-label="Magnifying glass">
           🔍
         </button>
+        <button type="button" class="toolbar-button toolbar-reset" data-action="reset-all" title="Turn every display setting back to normal">
+          Reset
+        </button>
         <button type="button" class="toolbar-button" data-action="toggle-help" aria-expanded="false" aria-label="Keyboard shortcuts">
           ?
         </button>
@@ -58,6 +61,7 @@
             <li><kbd>C</kbd> toggle color-blind friendly mode</li>
             <li><kbd>H</kbd> toggle high contrast mode</li>
             <li><kbd>D</kbd> toggle dark mode</li>
+            <li><kbd>R</kbd> reset all display settings</li>
             <li><kbd>M</kbd> magnifying glass on or off</li>
             <li><kbd>]</kbd> / <kbd>[</kbd> or <kbd>Shift</kbd> + scroll: magnify more or less</li>
             <li><kbd>Esc</kbd> close the magnifying glass</li>
@@ -362,6 +366,18 @@
     const savedDark = localStorage.getItem(STORAGE_KEYS.darkMode) ||
       (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     applyDarkMode(savedDark);
+
+    // "Reset": back to the defaults for every display setting.
+    const resetAll = () => {
+      [STORAGE_KEYS.colorMode, STORAGE_KEYS.contrastMode, STORAGE_KEYS.darkMode,
+        STORAGE_KEYS.zoom, STORAGE_KEYS.magnifierPower].forEach((key) => localStorage.removeItem(key));
+      applyColorMode("default");
+      applyContrastMode("default");
+      applyDarkMode(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      zoomLevel = applyZoom(1);
+      magnifier.power = MAGNIFIER.defaultPower;
+      setMagnifier(false);
+    };
     // On phones and touch screens the bar is a round "Aa" button that always
     // starts closed (must match the media query in styles.css).
     const phoneQuery = window.matchMedia("(max-width: 700px), (pointer: coarse)");
@@ -404,6 +420,11 @@
         const nextMode = document.body.classList.contains("high-contrast") ? "default" : "high";
         applyContrastMode(nextMode);
         localStorage.setItem(STORAGE_KEYS.contrastMode, nextMode);
+        return;
+      }
+
+      if (action === "reset-all") {
+        resetAll();
         return;
       }
 
@@ -483,6 +504,9 @@
         applyContrastMode(nextMode);
         localStorage.setItem(STORAGE_KEYS.contrastMode, nextMode);
         scheduleRefresh();
+      } else if (event.key.toLowerCase() === "r") {
+        event.preventDefault();
+        resetAll();
       } else if (event.key.toLowerCase() === "d") {
         event.preventDefault();
         toggleDarkMode();
