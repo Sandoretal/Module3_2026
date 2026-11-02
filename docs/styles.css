@@ -908,3 +908,28 @@ kbd {
   color: var(--muted);
   font-style: italic;
 }
+
+/* Add-to-calendar buttons on the schedule page */
+button.button {
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.button.small {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.day-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendar-hint {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
