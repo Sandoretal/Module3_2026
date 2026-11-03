@@ -162,38 +162,8 @@ conda create -n m3 -c conda-forge --override-channels python=3.11 -y
 ### 4. Install the packages
 Make sure the prompt shows `(m3)` first.
 
-**Option A: conda (recommended)**
 ```bash
 conda install -c conda-forge numpy pandas matplotlib seaborn plotly scipy statsmodels scikit-learn umap-learn imbalanced-learn statannotations wfdb jupyter ipykernel ipywidgets -y
-```
-
-**Option B: pip.** Run this from inside the course repository folder (if a `requirements.txt` is provided, `python -m pip install -r requirements.txt` does the same):
-```bash
-python -m pip install numpy pandas matplotlib seaborn plotly scipy statsmodels scikit-learn umap-learn imbalanced-learn statannotations wfdb jupyter ipykernel ipywidgets
-```
-
-**Option C: environment file (replaces Steps 3 and 4).** Save the following as `environment.yml`, then run `conda env create -f environment.yml` and `conda activate m3`:
-```yaml
-name: m3
-channels:
-  - conda-forge
-dependencies:
-  - python=3.11
-  - numpy
-  - pandas
-  - matplotlib
-  - seaborn
-  - plotly
-  - scipy
-  - statsmodels
-  - scikit-learn
-  - umap-learn
-  - imbalanced-learn
-  - statannotations
-  - wfdb
-  - jupyter
-  - ipykernel
-  - ipywidgets
 ```
 
 ### 5. Register the environment with Jupyter

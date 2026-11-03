@@ -124,4 +124,4 @@ To run the notebooks successfully, you will need a Python environment with the f
 * `scipy`
 * `wfdb`
 
-Run the cells **in order, from top to bottom**, with the notebook's own folder as the working directory so that the `data/` paths resolve. It is recommended to use an environment manager like `conda` or `pip` to install these dependencies.
+Run the cells **in order, from top to bottom**, with the notebook's own folder as the working directory so that the `data/` paths resolve. Install these dependencies with `conda` into the `m3` environment, following the setup instructions in the main course README.
