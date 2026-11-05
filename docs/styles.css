@@ -2034,3 +2034,9 @@ body.dark-mode .download-icon:hover {
   list-style: none;
   margin-left: -18px;
 }
+
+/* "Created and maintained by" line at the bottom of every page. */
+footer .site-credit {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+}
