@@ -88,61 +88,74 @@ To run all the notebooks in this module, you will need **Python 3.11** (3.10–3
 * `jupyter` and `ipykernel`
 * `ipywidgets` (optional, avoids a progress-bar warning when importing `umap`)
 
-We install these with **conda** (via Miniforge) in a separate environment called `m3`, following the steps below.
+We install these with **conda** (via Miniforge) in a separate environment called `m3`, and run the notebooks in **VS Code**, following the steps below.
 
-> 💡 **Where do I type the commands?** On Windows, use **Miniforge Prompt** (installed in Step 1). On macOS and Linux, use **Terminal**.
+> 💡 **Where do I type the commands?** From Step 2 onwards, type every command in the **VS Code terminal** (*Terminal → New Terminal*, or `` Ctrl+` `` / `` Cmd+` ``), with the course folder open in VS Code. This includes running the Miniforge installer.
 >
-> **Already have Anaconda, Miniconda or Miniforge?** Run `conda --version`. If it prints a version, skip to Step 3.
+> **Already have Anaconda, Miniconda or Miniforge?** Still do Steps 1 and 2 (skipping the Miniforge download), then run `conda --version` in the VS Code terminal. If it prints a version, skip to Step 4.
 
-### 1. Install conda (Miniforge)
-Download page: https://conda-forge.org/download/
+### 1. Download VS Code, Miniforge and the course materials
+1. **VS Code:** download and install it from https://code.visualstudio.com/ (Windows: tick **Add to PATH**; macOS: move it to **Applications**; Linux: use the `.deb` file or `sudo snap install code --classic`). Open VS Code and install the **Python** and **Jupyter** extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`).
+2. **Miniforge:** download the installer for your system from https://conda-forge.org/download/ into your **Downloads** folder. Don't run it yet; we run it from VS Code in Step 3.
+   - Windows: **`Miniforge3-Windows-x86_64.exe`** (works for both x64 and ARM PCs).
+   - macOS: **`Miniforge3-MacOSX-arm64.sh`** for Apple Silicon (M1/M2/M3/M4) or **`Miniforge3-MacOSX-x86_64.sh`** for Intel (Apple menu → *About This Mac*).
+   - Linux: **`Miniforge3-Linux-x86_64.sh`** (Intel/AMD) or **`Miniforge3-Linux-aarch64.sh`** (ARM).
+3. **Course materials:** on the [course repository page](https://github.com/Sandoretal/Module3_2026), click the green **Code** button → **Download ZIP**. Unzip it (Windows: right-click → *Extract All*; macOS/Linux: double-click) and move the extracted `Module3_2026-main` folder somewhere easy to find, e.g. `Documents`. Always work from the extracted folder, not from inside the ZIP.
+
+### 2. Open the course folder in VS Code
+1. In VS Code, choose **File → Open Folder…** and select the extracted `Module3_2026-main` folder. If asked, click **Yes, I trust the authors**.
+2. Open a terminal with **Terminal → New Terminal**. It opens at the bottom of the window, already inside the course folder. Use this terminal for every command below.
+
+### 3. Install conda (Miniforge) from the VS Code terminal
 
 <details>
 <summary><b>Windows</b></summary>
 
-1. Download and run **`Miniforge3-Windows-x86_64.exe`**. This installer works for both x64 and ARM PCs (to check, see *Settings → System → About → System type*).
-2. Choose **Just Me** → keep the default location `C:\Users\<you>\miniforge3` (use `C:\miniforge3` if your username contains spaces) → leave **"Add to PATH" unticked** → Install.
-3. Open **Miniforge Prompt** from the Start menu and use it for all the commands below.
-
-*Optional:* to use conda in PowerShell or the VS Code terminal, run `conda init powershell` in Miniforge Prompt, then reopen PowerShell. If PowerShell says scripts are disabled, run:
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
+1. Start the installer from the VS Code terminal (PowerShell):
+   ```powershell
+   Start-Process -Wait "$HOME\Downloads\Miniforge3-Windows-x86_64.exe"
+   ```
+2. In the installer, choose **Just Me** → keep the default location `C:\Users\<you>\miniforge3` (use `C:\miniforge3` if your username contains spaces) → leave **"Add to PATH" unticked** → Install.
+3. Back in the VS Code terminal, let PowerShell run conda's start-up script and set conda up for PowerShell (if you installed to `C:\miniforge3`, use `C:\miniforge3\Scripts\conda.exe` instead):
+   ```powershell
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+   & "$HOME\miniforge3\Scripts\conda.exe" init powershell
+   ```
+4. Close the terminal (bin icon in the terminal panel) and open a new one (**Terminal → New Terminal**). The prompt should now start with `(base)`. If it doesn't, quit VS Code completely and reopen it.
 </details>
 
 <details>
 <summary><b>macOS</b></summary>
 
-1. Download and run the installer (this picks the right version for your chip automatically):
+1. Run the installer you downloaded from the VS Code terminal (run only the line that matches the file you downloaded in Step 1):
    ```bash
-   curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
-   bash Miniforge3-$(uname)-$(uname -m).sh
+   bash ~/Downloads/Miniforge3-MacOSX-arm64.sh      # Apple Silicon
+   bash ~/Downloads/Miniforge3-MacOSX-x86_64.sh     # Intel
    ```
-   If you downloaded it from the website instead, check your chip with `uname -m` (or Apple menu → About This Mac) and run `bash ~/Downloads/Miniforge3-MacOSX-arm64.sh` (`arm64` = Apple Silicon) or `bash ~/Downloads/Miniforge3-MacOSX-x86_64.sh` (`x86_64` = Intel).
+   Not sure which chip you have? Run `uname -m` (`arm64` = Apple Silicon, `x86_64` = Intel).
 2. Answer the prompts: Enter → `yes` (licence) → Enter (location) → **`yes`** (initialize conda).
-3. Quit Terminal (`Cmd+Q`) and reopen it. If `(base)` doesn't appear at the start of the prompt, run `~/miniforge3/bin/conda init zsh`.
+3. Close the terminal (bin icon in the terminal panel) and open a new one (**Terminal → New Terminal**). The prompt should now start with `(base)`. If it doesn't, run `~/miniforge3/bin/conda init zsh`, then quit VS Code (`Cmd+Q`) and reopen it.
 </details>
 
 <details>
 <summary><b>Linux (Ubuntu)</b></summary>
 
-1. Download and run the installer:
+1. Run the installer you downloaded from the VS Code terminal (run only the line that matches the file you downloaded in Step 1):
    ```bash
-   curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
-   bash Miniforge3-$(uname)-$(uname -m).sh
+   bash ~/Downloads/Miniforge3-Linux-x86_64.sh      # Intel/AMD
+   bash ~/Downloads/Miniforge3-Linux-aarch64.sh     # ARM
    ```
-   If you downloaded it from the website instead, run `bash ~/Downloads/Miniforge3-Linux-x86_64.sh` (Intel/AMD) or `bash ~/Downloads/Miniforge3-Linux-aarch64.sh` (ARM).
 2. Answer the prompts: Enter → `yes` → Enter → **`yes`**.
-3. Close and reopen Terminal. If `(base)` doesn't appear, run `~/miniforge3/bin/conda init bash`.
+3. Close the terminal (bin icon in the terminal panel) and open a new one (**Terminal → New Terminal**). The prompt should now start with `(base)`. If it doesn't, run `~/miniforge3/bin/conda init bash`, then quit VS Code and reopen it.
 </details>
 
-### 2. Check that conda works
+### 4. Check that conda works
 ```bash
 conda --version
 conda info
 ```
 
-### 3. Create and activate the `m3` environment
+### 5. Create and activate the `m3` environment
 ```bash
 conda create -n m3 python=3.11 -y
 conda activate m3        # the prompt changes to (m3); repeat this in every new terminal
@@ -159,37 +172,33 @@ conda create -n m3 -c conda-forge --override-channels python=3.11 -y
 ```
 </details>
 
-### 4. Install the packages
+### 6. Install the packages
 Make sure the prompt shows `(m3)` first.
 
 ```bash
 conda install -c conda-forge numpy pandas matplotlib seaborn plotly scipy statsmodels scikit-learn umap-learn imbalanced-learn statannotations wfdb jupyter ipykernel ipywidgets -y
 ```
 
-### 5. Register the environment with Jupyter
+### 7. Register the environment with Jupyter
 With `(m3)` active:
 ```bash
 python -m ipykernel install --user --name m3 --display-name "Python (m3)"
 jupyter kernelspec list     # m3 should be listed
-jupyter lab                 # optional: opens Jupyter in your browser; press Ctrl+C to stop
 ```
 
-### 6. Connect VS Code
-1. Install VS Code from https://code.visualstudio.com/ (Windows: tick **Add to PATH**; macOS: move it to **Applications**; Linux: use the `.deb` file or `sudo snap install code --classic`).
-2. Install the **Python** and **Jupyter** extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`).
-3. Open a notebook → **Select Kernel** → **Python (m3)**. If it is missing: `Ctrl+Shift+P` / `Cmd+Shift+P` → **Python: Select Interpreter** → pick the path containing `envs/m3`.
-
-### 7. Check that everything is installed
+### 8. Check that everything is installed
 ```bash
 python -c "import sys, numpy, pandas, matplotlib, seaborn, sklearn; print('Python', sys.version.split()[0]); print('numpy', numpy.__version__); print('pandas', pandas.__version__); print('matplotlib', matplotlib.__version__); print('seaborn', seaborn.__version__); print('scikit-learn', sklearn.__version__)"
 ```
-Every package should print a version. If you see `ModuleNotFoundError`, activate `m3` (`conda activate m3`) and redo Step 4.
+Every package should print a version. If you see `ModuleNotFoundError`, activate `m3` (`conda activate m3`) and redo Step 6.
 
 ### Running the notebooks
-1. Download or clone this repository.
-2. Open Jupyter (`jupyter lab` or `jupyter notebook`) or your preferred editor, e.g. VS Code, and select the **Python (m3)** kernel.
-3. Open a notebook **from inside its tutorial folder**, so that the `data/` paths resolve correctly.
+1. Open the `Module3_2026-main` folder in VS Code (**File → Open Folder…**), as in Step 2.
+2. In the **Explorer** panel on the left, open a tutorial folder (e.g. `tutorial_1`) and click a notebook (`.ipynb`) to open it. Keep each notebook inside its own tutorial folder so that the `data/` paths resolve correctly.
+3. Click **Select Kernel** (top right) → **Python (m3)**. If it is missing: `Ctrl+Shift+P` / `Cmd+Shift+P` → **Python: Select Interpreter** → pick the path containing `envs/m3`, then try again.
 4. Run the cells **in order, from top to bottom** (`Shift + Enter`). If something stops working, restart the kernel and run all the cells above the one you are working on.
+
+When solution notebooks are released, download the ZIP again (Step 1) to get them.
 
 ### Useful commands
 ```bash
@@ -206,7 +215,7 @@ which python                                   # macOS/Linux: which Python is in
 <details>
 <summary><b>Start over or uninstall</b></summary>
 
-**Start over (all OS)**, then repeat Steps 3–5:
+**Start over (all OS)**, then repeat Steps 5–7:
 ```bash
 conda deactivate
 conda env remove -n m3 -y
