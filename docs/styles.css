@@ -2019,3 +2019,18 @@ body.dark-mode .download-icon:hover {
     display: none;
   }
 }
+
+/* Slides card on resources.html: slides grouped under each schedule day (filled by slides.js). */
+.slides-by-day > li + li {
+  margin-top: 10px;
+}
+
+.slides-by-day ul {
+  margin-top: 4px;
+}
+
+.slides-by-day li.empty {
+  font-style: italic;
+  list-style: none;
+  margin-left: -18px;
+}

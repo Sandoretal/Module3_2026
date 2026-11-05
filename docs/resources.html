@@ -54,9 +54,11 @@
         </article>
         <article class="card">
           <h3>Slides</h3>
-          <!-- Filled automatically from the slides/ folder by slides.js; this link is the fallback. -->
-          <ul data-slides-list="list">
-            <li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Module overview, part 1 (PDF)</a></li>
+          <!-- Filled automatically from the slides/ folder by slides.js, grouped by schedule day; this list is the fallback. -->
+          <ul class="slides-by-day" data-slides-list="by-day">
+            <li><a href="schedule.html#day-2026-11-05" title="See this day on the schedule"><strong>Day 1 · Thursday 5 November</strong></a>
+              <ul><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Module3 Module Overview part1 (PDF)</a></li></ul>
+            </li>
           </ul>
         </article>
         <article class="card pop">
@@ -91,6 +93,7 @@
               <option value="data">Data</option>
               <option value="guide">Guides</option>
               <option value="image">Images</option>
+              <option value="slides">Slides</option>
             </select>
           </label>
           <label class="filter">
@@ -119,7 +122,7 @@
               <th>Link</th>
             </tr>
           </thead>
-          <tbody id="fileTable">
+          <tbody id="fileTable" data-slides-rows>
             <tr data-type="notebook" data-tutorial="1" data-search="tutorial 1 introduction and functions ipynb notebook"><td>tutorial_1</td><td>Introduction_and_functions.ipynb</td><td>notebook</td><td><a href="rendered-notebooks/tutorial_1/Introduction_and_functions.html">Open rendered</a></td></tr>
             <tr data-type="guide" data-tutorial="1" data-search="tutorial 1 readme md guide"><td>tutorial_1</td><td>README.md</td><td>guide</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/README.md">Open</a></td></tr>
             <tr data-type="data" data-tutorial="1" data-search="tutorial 1 data clinvar 5000 vcf data"><td>tutorial_1/data</td><td>clinvar_5000.vcf</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_1/data/clinvar_5000.vcf">Open</a></td></tr>
@@ -150,6 +153,7 @@
             <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data df for unsupervised csv data"><td>tutorial_4/data</td><td>DF_for_unsupervised.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/DF_for_unsupervised.csv">Open</a></td></tr>
             <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data data for challenge csv data"><td>tutorial_4/data</td><td>Data_for_challenge.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Data_for_challenge.csv">Open</a></td></tr>
             <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data proteomics tremor pd csv data"><td>tutorial_4/data</td><td>Proteomics_tremor_PD.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Proteomics_tremor_PD.csv">Open</a></td></tr>
+            <tr data-type="slides" data-tutorial="" data-search="slides day 1 lecture pdf"><td>slides</td><td>Module3_Module_Overview_part1.pdf</td><td>slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Open</a></td></tr>
             <tr id="noMatches" style="display: none"><td colspan="4">No files match these filters.</td></tr>
           </tbody>
         </table>
@@ -164,12 +168,12 @@
     const input = document.getElementById("fileSearch");
     const typeFilter = document.getElementById("typeFilter");
     const tutorialFilter = document.getElementById("tutorialFilter");
-    const rows = Array.from(document.querySelectorAll("#fileTable tr"));
     const emptyRow = document.getElementById("noMatches");
     const applyFilters = () => {
       const query = input.value.trim().toLowerCase();
       let shown = 0;
-      rows.forEach((row) => {
+      // Looked up on every change, because slides.js adds the slide rows after the page loads.
+      document.querySelectorAll("#fileTable tr").forEach((row) => {
         if (row === emptyRow) return;
         const haystack = `${row.dataset.search || ""} ${row.textContent}`.toLowerCase();
         const visible = haystack.includes(query)
@@ -184,6 +188,7 @@
       el.addEventListener("input", applyFilters);
       el.addEventListener("change", applyFilters);
     });
+    document.addEventListener("slides:loaded", applyFilters);
   </script>
 </body>
 </html>
