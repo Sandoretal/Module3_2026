@@ -15,6 +15,7 @@
 // A PDF belongs to a lecture when its file name contains one of the lecture's words as whole
 // words, ignoring case and treating spaces, "_" and "-" alike. For example, "time_series"
 // matches "Lecture2_Time_Series.pdf", and "ml" matches "Intro_ML.pdf" but not "html".
+// The part number also sets the day: "part2" (or "part 2", "Part_2") goes to Day 2, and so on.
 // PDFs that match no lecture are listed under "Other slides".
 (() => {
   const REPO = "Sandoretal/Module3_2026";
@@ -31,11 +32,11 @@
     { id: "day-2026-11-10", label: "Day 4 · Tuesday 10 November" },
   ];
   const LECTURES = [
-    { id: "overview", tutorial: "", day: "day-2026-11-05", words: ["overview"] },
+    { id: "overview", tutorial: "", day: "day-2026-11-05", words: ["overview", "part1", "part_1"] },
     { id: "programming", tutorial: "1", day: "day-2026-11-05", words: ["programming", "python"] },
-    { id: "time-series", tutorial: "2", day: "day-2026-11-06", words: ["time_series", "timeseries"] },
-    { id: "statistics", tutorial: "3", day: "day-2026-11-09", words: ["statistics", "ehr"] },
-    { id: "machine-learning", tutorial: "4", day: "day-2026-11-10", words: ["machine_learning", "ml"] },
+    { id: "time-series", tutorial: "2", day: "day-2026-11-06", words: ["time_series", "timeseries", "wearable", "wearables", "part2", "part_2"] },
+    { id: "statistics", tutorial: "3", day: "day-2026-11-09", words: ["statistics", "ehr", "part3", "part_3"] },
+    { id: "machine-learning", tutorial: "4", day: "day-2026-11-10", words: ["machine_learning", "ml", "part4", "part_4"] },
   ];
 
   const targets = document.querySelectorAll("[data-slides-list]");
