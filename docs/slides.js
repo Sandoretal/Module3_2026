@@ -49,6 +49,11 @@
   // "Module3_Module_Overview_part1.pdf" -> "Module3 Module Overview part1"
   const titleFrom = (name) => name.replace(/\.pdf$/i, "").replace(/[_-]+/g, " ").trim();
   const matchesLecture = (pdf, lecture) => lecture.words.some((w) => words(pdf.name).includes(words(w)));
+  // "Module3_EHR_Statistic_part3.pdf" -> 3; PDFs without a part number go last.
+  const partNumber = (pdf) => {
+    const match = words(pdf.name).match(/_part_?(\d+)_/);
+    return match ? Number(match[1]) : Infinity;
+  };
 
   const el = (tag, props = {}, children = []) => {
     const node = Object.assign(document.createElement(tag), props);
@@ -117,7 +122,8 @@
     .then((items) => {
       const pdfs = items
         .filter((item) => item.type === "file" && /\.pdf$/i.test(item.name))
-        .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+        // In part order (part1, part2, part3, ...), then by name.
+        .sort((a, b) => partNumber(a) - partNumber(b) || a.name.localeCompare(b.name, undefined, { numeric: true }));
 
       targets.forEach((target) => {
         const style = target.dataset.slidesList;

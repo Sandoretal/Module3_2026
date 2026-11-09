@@ -582,17 +582,17 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 2
  },
  {
-  "title": "Jargon buster",
+  "title": "Key words",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Jargon-buster",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Key-words",
   "level": 2
  },
  {
-  "title": "Part A — ECG data",
+  "title": "Part A; ECG data",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Part-A-%E2%80%94-ECG-data",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Part-A;-ECG-data",
   "level": 1
  },
  {
@@ -869,10 +869,10 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 3
  },
  {
-  "title": "Your turn (A.11d) — heart rate",
+  "title": "Your turn (A.11d); heart rate",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Your-turn-(A.11d)-%E2%80%94-heart-rate",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Your-turn-(A.11d);-heart-rate",
   "level": 3
  },
  {
@@ -890,10 +890,10 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 3
  },
  {
-  "title": "Your turn (A.12) — the full pipeline",
+  "title": "Your turn (A.12); the full pipeline",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Your-turn-(A.12)-%E2%80%94-the-full-pipeline",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Your-turn-(A.12);-the-full-pipeline",
   "level": 3
  },
  {
@@ -904,10 +904,10 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 3
  },
  {
-  "title": "Part B — Wearable accelerometer data",
+  "title": "Part B; Wearable accelerometer data",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Part-B-%E2%80%94-Wearable-accelerometer-data",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Part-B;-Wearable-accelerometer-data",
   "level": 1
  },
  {
@@ -1016,17 +1016,17 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 2
  },
  {
-  "title": "Concept — which frequencies do we want?",
+  "title": "Concept; which frequencies do we want?",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept-%E2%80%94-which-frequencies-do-we-want?",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept;-which-frequencies-do-we-want?",
   "level": 3
  },
  {
-  "title": "Concept — applying a function to every column: .apply() and lambda",
+  "title": "Concept; applying a function to every column: .apply() and lambda",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept-%E2%80%94-applying-a-function-to-every-column:-.apply()-and-lambda",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept;-applying-a-function-to-every-column:-.apply()-and-lambda",
   "level": 3
  },
  {
@@ -1079,10 +1079,10 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 3
  },
  {
-  "title": "Your turn (B.7b) — the big one",
+  "title": "Your turn (B.7b); the big one",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Your-turn-(B.7b)-%E2%80%94-the-big-one",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Your-turn-(B.7b);-the-big-one",
   "level": 3
  },
  {
@@ -1093,10 +1093,10 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 2
  },
  {
-  "title": "Concept — the signal vector magnitude",
+  "title": "Concept; the signal vector magnitude",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept-%E2%80%94-the-signal-vector-magnitude",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept;-the-signal-vector-magnitude",
   "level": 3
  },
  {
@@ -1114,10 +1114,10 @@ window.MODULE3_NOTEBOOK_INDEX = [
   "level": 3
  },
  {
-  "title": "Concept — correlation between features",
+  "title": "Concept; correlation between features",
   "tutorial": 2,
   "notebook": "TimeSeriesAnalysis",
-  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept-%E2%80%94-correlation-between-features",
+  "url": "rendered-notebooks/tutorial_2/TimeSeriesAnalysis.html#Concept;-correlation-between-features",
   "level": 3
  },
  {

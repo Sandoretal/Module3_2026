@@ -16,3 +16,5 @@ tutorial_4/solutions/
 
 
 CLAUDE.md
+# Python caches
+__pycache__/

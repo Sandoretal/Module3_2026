@@ -19,6 +19,8 @@ Usage (from the repository root):
     python tools/render_site_notebooks.py
 """
 
+import os
+import re
 import shutil
 import subprocess
 import sys
@@ -40,10 +42,16 @@ NOTEBOOKS = [
     "tutorial_4/Intro_toML.ipynb",
 ]
 
+# Solution notebooks: never rendered, indexed or packed into the downloads.
+# They are released on GitHub only (README: "Solution notebooks ... are released
+# after the tutorial has taken place").
+SOLUTION = re.compile(r"(^|/)solutions/|solution|withanswers", re.I)
+
 # Images referenced by relative path from the notebooks' markdown.
 ASSETS = [
     "tutorial_1/sam_file.png",
     "tutorial_1/vcf_format.png",
+    "tutorial_2/images",
     "tutorial_3/images",
 ]
 
@@ -65,14 +73,18 @@ def git(*args):
 def check_matches_repo():
     """The site must show exactly what is on GitHub: every notebook tracked,
     with no local edits, and the local branch level with origin/main."""
-    tracked = set(git("ls-files", "*.ipynb").stdout.split())
+    # Notebooks under docs/ are published files (e.g. downloads), not sources.
+    tracked = {rel for rel in git("ls-files", "*.ipynb").stdout.splitlines() if not rel.startswith("docs/")}
     problems = [f"{rel}: not tracked in git" for rel in NOTEBOOKS if rel not in tracked]
     problems += [f"{rel}: has uncommitted changes" for rel in NOTEBOOKS
                  if git("diff", "--quiet", "HEAD", "--", rel).returncode != 0]
-    untracked = tracked - set(NOTEBOOKS)
+    problems += [f"{rel}: listed in NOTEBOOKS but looks like a solution" for rel in NOTEBOOKS if SOLUTION.search(rel)]
+    untracked = {rel for rel in tracked - set(NOTEBOOKS) if not SOLUTION.search(rel)}
     if untracked:
         problems.append(f"tracked notebooks missing from NOTEBOOKS: {sorted(untracked)}")
-    if git("diff", "--quiet", "HEAD", "origin/main", "--", *NOTEBOOKS).returncode != 0:
+    # On GitHub Actions the checked-out commit is, by definition, what gets published.
+    if not os.environ.get("GITHUB_ACTIONS") and \
+            git("diff", "--quiet", "HEAD", "origin/main", "--", *NOTEBOOKS).returncode != 0:
         problems.append("notebooks differ from origin/main (push or pull first)")
     if problems:
         sys.exit("Notebooks do not match the repository:\n" + "\n".join(problems))
@@ -132,6 +144,9 @@ def main():
         else:
             shutil.copy2(src, dest)
 
+    leaked = [p.relative_to(ROOT).as_posix() for p in OUT.rglob("*") if SOLUTION.search(p.name)]
+    if leaked:
+        problems.append(f"solution files in the rendered pages: {leaked}")
     if problems:
         sys.exit("Rendered HTML is not clean:\n" + "\n".join(problems))
 
