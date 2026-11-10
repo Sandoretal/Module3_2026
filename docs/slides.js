@@ -17,10 +17,15 @@
 // matches "Lecture2_Time_Series.pdf", and "ml" matches "Intro_ML.pdf" but not "html".
 // The part number also sets the day: "part2" (or "part 2", "Part_2") goes to Day 2, and so on.
 // PDFs that match no lecture are listed under "Other slides".
+//
+// Lecture or workshop: a PDF whose name contains "workshop", "tutorial" or "practical" (e.g.
+// "Module3_ML_workshop_part4.pdf") is a workshop deck; every other PDF is a lecture. Each card and
+// list entry gets a "Lecture" or "Workshop" pill, and on the schedule a cell only shows the kind it
+// asks for: data-slides-kind="workshop" on a tutorial row, lecture slides everywhere else.
 (() => {
   const REPO = "Sandoretal/Module3_2026";
   const FOLDER = "slides";
-  const CARD_COLOURS = ["cool", "hot", "pop"];
+  const WORKSHOP_WORDS = ["workshop", "tutorial", "practical"];
 
   // One entry per lecture on schedule.html, in schedule order. `tutorial` is the tutorial the
   // lecture introduces ("" for none), used by the file table's Tutorial filter. `day` must match the
@@ -55,19 +60,24 @@
     return match ? Number(match[1]) : Infinity;
   };
 
+  const kindOf = (pdf) => (WORKSHOP_WORDS.some((w) => words(pdf.name).includes(words(w))) ? "workshop" : "lecture");
+  const KIND_LABEL = { lecture: "Lecture", workshop: "Workshop" };
+
   const el = (tag, props = {}, children = []) => {
     const node = Object.assign(document.createElement(tag), props);
     node.append(...children);
     return node;
   };
 
+  const kindPill = (pdf) => el("span", { className: `pill ${kindOf(pdf)}`, textContent: KIND_LABEL[kindOf(pdf)] });
   const pdfLink = (pdf) => el("a", { href: pdf.html_url, textContent: `${titleFrom(pdf.name)} (PDF)` });
-  const asListItem = (pdf) => el("li", {}, [pdfLink(pdf)]);
+  const asListItem = (pdf) => el("li", {}, [pdfLink(pdf), " ", kindPill(pdf)]);
 
-  const asCard = (pdf, i) => {
+  const asCard = (pdf) => {
     const download = el("a", { className: "button secondary small", href: pdf.download_url, textContent: "↓ Download" });
     download.setAttribute("download", "");
-    return el("article", { className: `card ${CARD_COLOURS[i % CARD_COLOURS.length]}` }, [
+    return el("article", { className: `card ${kindOf(pdf) === "workshop" ? "cool workshop" : "hot lecture"}` }, [
+      kindPill(pdf),
       el("h3", { textContent: titleFrom(pdf.name) }),
       el("div", { className: "cta-row" }, [
         el("a", { className: "button primary small", href: pdf.html_url, textContent: "Open" }),
@@ -105,12 +115,12 @@
     const row = el("tr", {}, [
       el("td", { textContent: FOLDER }),
       el("td", { textContent: pdf.name }),
-      el("td", { textContent: "slides" }),
+      el("td", { textContent: `${kindOf(pdf)} slides` }),
       el("td", {}, [el("a", { href: pdf.html_url, textContent: "Open" })]),
     ]);
     row.dataset.type = "slides";
     row.dataset.tutorial = lecture ? lecture.tutorial : "";
-    row.dataset.search = `slides lecture pdf ${titleFrom(pdf.name)} ${day ? day.label : ""}`.toLowerCase();
+    row.dataset.search = `slides ${kindOf(pdf)} pdf ${titleFrom(pdf.name)} ${day ? day.label : ""}`.toLowerCase();
     return row;
   };
 
@@ -141,9 +151,12 @@
       lectureCells.forEach((cell) => {
         const lecture = LECTURES.find((l) => l.id === cell.dataset.slides);
         if (!lecture) return;
-        const matches = pdfs.filter((pdf) => matchesLecture(pdf, lecture));
+        const kind = cell.dataset.slidesKind || "lecture";
+        const matches = pdfs.filter((pdf) => matchesLecture(pdf, lecture) && kindOf(pdf) === kind);
         matches.forEach((pdf) => {
-          const label = matches.length > 1 ? `Slides: ${titleFrom(pdf.name)} (PDF)` : "Slides (PDF)";
+          const label = matches.length > 1
+            ? `${KIND_LABEL[kind]} slides: ${titleFrom(pdf.name)} (PDF)`
+            : `${KIND_LABEL[kind]} slides (PDF)`;
           cell.append(el("br"), el("a", { href: pdf.html_url, textContent: label }));
         });
       });

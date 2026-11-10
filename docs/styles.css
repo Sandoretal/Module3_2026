@@ -843,6 +843,27 @@ kbd {
   color: #153e75;
 }
 
+.pill.workshop {
+  background: color-mix(in srgb, var(--teal) 16%, transparent);
+  color: var(--teal);
+}
+
+/* Slide cards: a workshop deck gets a dashed teal edge so it stands apart from the lecture decks. */
+.card.workshop {
+  border: 1px dashed color-mix(in srgb, var(--teal) 55%, transparent);
+}
+
+.card > .pill + h3 {
+  margin-top: 10px;
+}
+
+.slides-by-day .pill {
+  margin-left: 4px;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  vertical-align: middle;
+}
+
 .pill.study {
   background: rgba(16, 35, 33, 0.07);
   color: var(--muted);
