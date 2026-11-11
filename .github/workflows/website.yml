@@ -3,6 +3,7 @@
 # On every push to main it:
 #   1. renders the student notebooks to HTML (outputs and answers stripped),
 #      rebuilds the search index and the per-tutorial zips (no solutions),
+#      and writes the list of slide PDFs into the pages,
 #   2. checks every link, section anchor and GitHub file link on the site,
 #   3. publishes docs/ to GitHub Pages, only if steps 1 and 2 passed.
 # Pull requests run steps 1 and 2 only, so problems show up before merging.
@@ -43,6 +44,9 @@ jobs:
 
       - name: Render notebooks, search index and downloads
         run: python tools/render_site_notebooks.py
+
+      - name: Write the slides list into the pages
+        run: python tools/build_slides_list.py
 
       - name: Check links
         run: python tools/check_links.py

@@ -55,11 +55,22 @@
         </article>
         <article class="card">
           <h3>Slides</h3>
-          <!-- Filled automatically from the slides/ folder by slides.js, grouped by schedule day; this list is the fallback. -->
+          <!-- Written from the slides/ folder by tools/build_slides_list.py when the site is built, grouped by schedule day. -->
           <ul class="slides-by-day" data-slides-list="by-day">
+<!-- slides:by-day:start -->
             <li><a href="schedule.html#day-2026-11-05" title="See this day on the schedule"><strong>Day 1 · Thursday 5 November</strong></a>
-              <ul><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Module3 Module Overview part1 (PDF)</a></li></ul>
+              <ul><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Module3 Module Overview part1 (PDF)</a> <span class="pill lecture">Lecture</span></li></ul>
             </li>
+            <li><a href="schedule.html#day-2026-11-06" title="See this day on the schedule"><strong>Day 2 · Friday 6 November</strong></a>
+              <ul><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Wearables_part2.pdf">Module3 Wearables part2 (PDF)</a> <span class="pill lecture">Lecture</span></li></ul>
+            </li>
+            <li><a href="schedule.html#day-2026-11-09" title="See this day on the schedule"><strong>Day 3 · Monday 9 November</strong></a>
+              <ul><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_EHR_Statistic_part3.pdf">Module3 EHR Statistic part3 (PDF)</a> <span class="pill lecture">Lecture</span></li></ul>
+            </li>
+            <li><a href="schedule.html#day-2026-11-10" title="See this day on the schedule"><strong>Day 4 · Tuesday 10 November</strong></a>
+              <ul><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_ML_part4.pdf">Module3 ML part4 (PDF)</a> <span class="pill lecture">Lecture</span></li><li><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_ML_workshop_part4.pdf">Module3 ML workshop part4 (PDF)</a> <span class="pill workshop">Workshop</span></li></ul>
+            </li>
+<!-- slides:by-day:end -->
           </ul>
         </article>
         <article class="card pop">
@@ -154,7 +165,13 @@
             <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data df for unsupervised csv data"><td>tutorial_4/data</td><td>DF_for_unsupervised.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/DF_for_unsupervised.csv">Open</a></td></tr>
             <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data data for challenge csv data"><td>tutorial_4/data</td><td>Data_for_challenge.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Data_for_challenge.csv">Open</a></td></tr>
             <tr data-type="data" data-tutorial="4" data-search="tutorial 4 data proteomics tremor pd csv data"><td>tutorial_4/data</td><td>Proteomics_tremor_PD.csv</td><td>data</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/tutorial_4/data/Proteomics_tremor_PD.csv">Open</a></td></tr>
-            <tr data-type="slides" data-tutorial="" data-search="slides day 1 lecture pdf"><td>slides</td><td>Module3_Module_Overview_part1.pdf</td><td>slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Open</a></td></tr>
+<!-- slides:rows:start -->
+            <tr data-type="slides" data-tutorial="" data-search="slides lecture pdf module3 module overview part1 day 1 · thursday 5 november"><td>slides</td><td>Module3_Module_Overview_part1.pdf</td><td>lecture slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Module_Overview_part1.pdf">Open</a></td></tr>
+            <tr data-type="slides" data-tutorial="2" data-search="slides lecture pdf module3 wearables part2 day 2 · friday 6 november"><td>slides</td><td>Module3_Wearables_part2.pdf</td><td>lecture slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_Wearables_part2.pdf">Open</a></td></tr>
+            <tr data-type="slides" data-tutorial="3" data-search="slides lecture pdf module3 ehr statistic part3 day 3 · monday 9 november"><td>slides</td><td>Module3_EHR_Statistic_part3.pdf</td><td>lecture slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_EHR_Statistic_part3.pdf">Open</a></td></tr>
+            <tr data-type="slides" data-tutorial="4" data-search="slides lecture pdf module3 ml part4 day 4 · tuesday 10 november"><td>slides</td><td>Module3_ML_part4.pdf</td><td>lecture slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_ML_part4.pdf">Open</a></td></tr>
+            <tr data-type="slides" data-tutorial="4" data-search="slides workshop pdf module3 ml workshop part4 day 4 · tuesday 10 november"><td>slides</td><td>Module3_ML_workshop_part4.pdf</td><td>workshop slides</td><td><a href="https://github.com/Sandoretal/Module3_2026/blob/main/slides/Module3_ML_workshop_part4.pdf">Open</a></td></tr>
+<!-- slides:rows:end -->
             <tr id="noMatches" style="display: none"><td colspan="4">No files match these filters.</td></tr>
           </tbody>
         </table>
@@ -168,7 +185,6 @@
     </footer>
   </div>
   <script src="site.js"></script>
-  <script src="slides.js"></script>
   <script>
     const input = document.getElementById("fileSearch");
     const typeFilter = document.getElementById("typeFilter");
@@ -177,7 +193,6 @@
     const applyFilters = () => {
       const query = input.value.trim().toLowerCase();
       let shown = 0;
-      // Looked up on every change, because slides.js adds the slide rows after the page loads.
       document.querySelectorAll("#fileTable tr").forEach((row) => {
         if (row === emptyRow) return;
         const haystack = `${row.dataset.search || ""} ${row.textContent}`.toLowerCase();
@@ -193,7 +208,6 @@
       el.addEventListener("input", applyFilters);
       el.addEventListener("change", applyFilters);
     });
-    document.addEventListener("slides:loaded", applyFilters);
   </script>
 </body>
 </html>

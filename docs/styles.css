@@ -2041,7 +2041,7 @@ body.dark-mode .download-icon:hover {
   }
 }
 
-/* Slides card on resources.html: slides grouped under each schedule day (filled by slides.js). */
+/* Slides card on resources.html: slides grouped under each schedule day (written by tools/build_slides_list.py). */
 .slides-by-day > li + li {
   margin-top: 10px;
 }
