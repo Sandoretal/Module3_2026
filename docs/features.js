@@ -68,12 +68,18 @@
           dayLabel: dayLabel.trim(),
           date,
           study: row.classList.contains("study-row"),
+          hackathon: day.hasAttribute("data-hackathon"),
           start: new Date(`${date}T${pad(h1)}:${m1}:00`),
           end: new Date(`${date}T${pad(h2)}:${m2}:00`),
           time: `${pad(h1)}:${m1}–${pad(h2)}:${m2}`,
           title: text(scratch),
           type: text(cells[2]),
-          room: text(cells[3]),
+          room: cells[3]
+            ? cells[3].innerHTML.split(/<br\s*\/?>/i).map((part) => {
+              scratch.innerHTML = part;
+              return text(scratch);
+            }).filter(Boolean).join(" · ")
+            : "",
           lead: text(cells[4]),
           linkText: link ? link.textContent.trim() : "",
           linkHref: link ? link.getAttribute("href") : ""
@@ -117,16 +123,6 @@
     }).join("");
   }
 
-  // The hackathon (ICA) runs after the teaching days, so it is not in schedule.html.
-  const HACKATHON = {
-    title: "ICA (Hackathon)",
-    start: new Date("2026-11-20T09:30:00"),
-    end: new Date("2026-11-20T17:00:00"),
-    when: "Friday 20 November, 09:30–17:00",
-    room: "CXRB 116A - Collaborative Learning Suite A",
-    extra: "Extra rooms: CXRB 116C - Collaborative Learning Suite C and CXLB 976 - 9th Floor Teaching Room (check times)."
-  };
-
   async function initTodayBanner() {
     const box = document.getElementById("todayBanner");
     if (!box) {
@@ -168,27 +164,7 @@
     let heading;
     let body;
 
-    const hackathonItem = (status, label) => `
-      <ol class="today-list">
-        <li class="today-item is-${status}">
-          <span class="today-label">${escapeHtml(label)}</span>
-          <div>
-            <strong>${escapeHtml(HACKATHON.title)}</strong>
-            <p>${escapeHtml(HACKATHON.when)} · ${escapeHtml(HACKATHON.room)}</p>
-            <p>${escapeHtml(HACKATHON.extra)}</p>
-          </div>
-        </li>
-      </ol>`;
-
-    if (now >= last.end && now < HACKATHON.end) {
-      const onTheDay = localDate(now) === localDate(HACKATHON.start);
-      heading = onTheDay ? "Good luck at the hackathon today!" : "See you at the hackathon!";
-      body = hackathonItem(
-        now >= HACKATHON.start ? "now" : "next",
-        now >= HACKATHON.start ? "Now" : onTheDay ? "09:30" : "Fri 20 Nov"
-      );
-      body += `<p class="today-note">All teaching materials stay available on the tutorial pages.</p>`;
-    } else if (now >= last.end) {
+    if (now >= last.end) {
       heading = "Module 3 has finished";
       body = `<p class="today-note">All materials stay available on the tutorial pages.</p>`;
     } else if (sessionsOn(today).length) {
@@ -196,7 +172,9 @@
       const dayOver = todays.every((s) => s.end <= now);
       heading = dayOver
         ? `Today's sessions are over`
-        : `Today: ${todays[0].dayName}`;
+        : todays[0].hackathon
+          ? "Good luck at the hackathon today!"
+          : `Today: ${todays[0].dayName}`;
       body = `<ol class="today-list">${dayListHtml(todays, now)}</ol>`;
       if (dayOver) {
         const nextDay = sessions.find((s) => s.start > now);
@@ -211,7 +189,9 @@
       const dayName = sessionsOn(nextDay)[0].dayName;
       heading = now < sessions[0].start
         ? `Module 3 starts ${when}: ${dayName}`
-        : `No sessions today. Next ${when}: ${dayName}`;
+        : sessionsOn(nextDay)[0].hackathon
+          ? `See you at the hackathon ${when}: ${dayName}`
+          : `No sessions today. Next ${when}: ${dayName}`;
       body = `<ol class="today-list">${dayListHtml(sessionsOn(nextDay), now)}</ol>`;
     }
 

@@ -848,6 +848,16 @@ kbd {
   color: var(--teal);
 }
 
+.pill.hackathon {
+  background: color-mix(in srgb, var(--coral) 18%, transparent);
+  color: var(--coral);
+}
+
+.schedule .room-extra {
+  font-size: 0.85em;
+  color: var(--muted);
+}
+
 /* Slide cards: a workshop deck gets a dashed teal edge so it stands apart from the lecture decks. */
 .card.workshop {
   border: 1px dashed color-mix(in srgb, var(--teal) 55%, transparent);
